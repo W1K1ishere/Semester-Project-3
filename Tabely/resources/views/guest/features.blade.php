@@ -1,1 +1,3 @@
-<?php
+<x-layout>
+
+</x-layout>
