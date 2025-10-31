@@ -31,7 +31,7 @@
                 </div>
                 {{--login button--}}
                 <div class="flex ">
-                    <a href="/login" class="rounded-md px-3 py-2">Login</a>
+{{--                    <a href="/login" class="rounded-md px-3 py-2">Login</a>--}}
                 </div>
             </div>
         </nav>
