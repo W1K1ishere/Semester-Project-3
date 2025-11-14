@@ -6,7 +6,6 @@
         <title>Document</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-
     <body class="h-full m-0">
 
         <div class="pb-56 flex flex-col items-center justify-center h-screen w-screen bg-cover bg-center bg-no-repeat bg-[url('{{ asset('images/login-office.jpg') }}')]">
@@ -31,7 +30,7 @@
                     </div>
                     <div class="flex items-center gap-12">
                         <button class="w-36 h-8 bg-white rounded-lg">Login</button>
-                        <a href="/reset" class="p-0.5 border-2 border-black w-36 h-8 rounded-lg text-center bg-white/20">Reset Password</a>
+                        <a href="/reset-request" class="p-0.5 border-2 border-black w-36 h-8 rounded-lg text-center bg-white/20">Reset Password</a>
                     </div>
                 </div>
             </form>

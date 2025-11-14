@@ -6,6 +6,7 @@
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <link rel="icon" type="image/png" href="{{ asset('icons/icon.png') }}" class="rounded-lg">
 
 </head>
 <body class="h-full">
@@ -24,14 +25,29 @@
                     </div>
                     {{--links--}}
                     <div class="flex items-center gap-3">
+                        @auth
+                            <x-nav-link>Home</x-nav-link>
+                            <x-nav-link>Charts</x-nav-link>
+                        @endauth
                         <x-nav-link href="/features" :active="request()->is('features')" >Features</x-nav-link>
                         <x-nav-link href="/companies" :active="request()->is('companies')">For Companies</x-nav-link>
                         <x-nav-link href="/support" :active="request()->is('support')">Support</x-nav-link>
                     </div>
                 </div>
                 {{--login button--}}
-                <div class="flex ">
-{{--                    <a href="/login" class="rounded-md px-3 py-2">Login</a>--}}
+                <div class="flex gap-0.5 pb-0.5">
+                    @auth
+                        <div class="pt-1.5">
+                            <x-nav-link href="/profile/{{ auth()->user() }}">Edit Profile</x-nav-link>
+                        </div>
+                        <div>
+                            <form method="POST" action="/logout">
+                                @csrf
+                                <button class="bg-black text-white px-4 py-2 w-24 text-center rounded-xl" type="submit">Log Out</button>
+                            </form>
+                        </div>
+
+                    @endauth
                 </div>
             </div>
         </nav>
