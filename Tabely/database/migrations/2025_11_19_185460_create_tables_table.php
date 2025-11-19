@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
             $table->integer('current_height');
-            $table->foreign('department_id');
             $table->timestamps();
         });
     }
