@@ -46,9 +46,9 @@
                                 <x-profile-input id="email" name="email" type="email" value="{{ $user->email }}"></x-profile-input>
                                 {{--height input with custom buttons--}}
                                 <div>
-                                    <button onclick="this.nextElementSibling.stepDown()">−</button>
+                                    <button type="button" onclick="this.nextElementSibling.stepDown()">−</button>
                                     <x-profile-input id="height" name="height" type="number" class="[&::-webkit-inner-spin-button]:appearance-none &::-webkit-outer-spin-button]:appearance-none] appearance-none" value="{{ $user->height }}"></x-profile-input>
-                                    <button onclick="this.previousElementSibling.stepUp()">+</button>
+                                    <button type="button" onclick="this.previousElementSibling.stepUp()">+</button>
                                 </div>
                             </div>
                         </div>
