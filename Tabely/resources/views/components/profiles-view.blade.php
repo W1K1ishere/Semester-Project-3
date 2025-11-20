@@ -2,7 +2,7 @@
 <form method="POST" action="{{ route('profile.select') }}">
     @csrf
     <input type="hidden" name="profile_id" value="{{ $profile->id }}">
-    <button type="submit" class="{{ $active ? "text-white bg-orange-400" : "text-black bg-gray-400" }} bg-gray-400 px-5 py-1.5 rounded-2xl hover:bg-gray-300 font-semibold text-xl">
+    <button type="submit" class="flex flex-row items-center gap-5 {{ $active ? "text-white bg-orange-400" : "text-black bg-gray-300" }} px-5 py-1.5 rounded-2xl hover:bg-gray-200 font-semibold text-xl">
         {{ $profile->name }}
         <p class="text-black text-xs">Standing height : {{ $profile->standing_height }}</p>
         <p class="text-black text-xs">Sitting height : {{ $profile->sitting_height }}</p>

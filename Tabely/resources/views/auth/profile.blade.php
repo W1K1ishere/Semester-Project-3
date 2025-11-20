@@ -65,19 +65,42 @@
                 <div class="flex-1 flex flex-col justify-between p-10">
 
                     {{-- Profile picking menu --}}
-                    <div class="flex flex-col bg-orange-50/90 rounded-2xl gap-3 py-5 px-3 w-[700px] h-[350px]">
+                    <div class="flex flex-col bg-orange-50/90 rounded-2xl gap-3.5 py-5 px-12 w-[700px] h-[350px]">
                         <!-- Top right content -->
+                        <p class="text-4xl font-semibold mb-5">Profiles:</p>
                         @foreach($profiles as $profile)
                             <x-profiles-view :profile="$profile" :active="$profile->id===$user->picked_profile"></x-profiles-view>
                         @endforeach
-                        <div class="mt-4">
+                        <div class="mt-5">
                             {{ $profiles->links() }}
                         </div>
                     </div>
 
                     {{-- Edit profile --}}
-                    <div class="flex flex-col bg-orange-50/90 rounded-2xl">
+                    <div class="flex flex-col bg-orange-50/90 rounded-2xl py-5 px-12 w-[700px] h-[430px]">
                         <!-- Bottom right content -->
+                        <p class="text-4xl font-semibold">{{ $activeProfile->name }} :</p>
+                        {{--standing height input--}}
+                        <div>
+                            <p>Standing Height</p>
+                            <input value="{{ $activeProfile->standing_height }}">
+                        </div>
+                        {{--sitting height input--}}
+                        <div>
+                            <p>Sitting height</p>
+                            <input value="{{ $activeProfile->sitting_height }}">
+                        </div>
+                        {{--Session length--}}
+                        <div>
+                            <p>Session length</p>
+                            <input value="">
+                        </div>
+                        {{--save, cancle, delete buttons--}}
+                        <div>
+                            <button>Save</button>
+                            <button>Cancel</button>
+                            <button>Delete</button>
+                        </div>
                     </div>
 
                 </div>

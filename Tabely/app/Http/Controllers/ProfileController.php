@@ -10,9 +10,11 @@ class ProfileController extends Controller
     public function create(){
         $user = Auth()->user();
         $profiles = Profile::where('user_id',$user->id)->latest()->simplePaginate(3);
+        $activeProfile = Profile::find($user->picked_profile);
         return view('auth.profile', [
             'user' => $user,
-            'profiles' => $profiles]);
+            'profiles' => $profiles,
+            'activeProfile' => $activeProfile]);
     }
 
     public function select(Request $request){
