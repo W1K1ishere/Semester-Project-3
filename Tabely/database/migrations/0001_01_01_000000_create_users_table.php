@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('height');
             $table->string('phone');
             $table->boolean('isAdmin')->default(false);
+            $table->integer('picked_profile')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->string('avatar')->nullable();

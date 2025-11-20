@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 <!doctype html>
 <html lang="en">
 <head>
@@ -64,12 +65,18 @@
                 <div class="flex-1 flex flex-col justify-between p-10">
 
                     {{-- Profile picking menu --}}
-                    <div>
+                    <div class="flex flex-col bg-orange-50/90 rounded-2xl gap-3 py-5 px-3 w-[700px] h-[350px]">
                         <!-- Top right content -->
+                        @foreach($profiles as $profile)
+                            <x-profiles-view :profile="$profile" :active="$profile->id===$user->picked_profile"></x-profiles-view>
+                        @endforeach
+                        <div class="mt-4">
+                            {{ $profiles->links() }}
+                        </div>
                     </div>
 
                     {{-- Edit profile --}}
-                    <div>
+                    <div class="flex flex-col bg-orange-50/90 rounded-2xl">
                         <!-- Bottom right content -->
                     </div>
 

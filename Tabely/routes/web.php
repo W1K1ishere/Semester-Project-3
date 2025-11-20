@@ -11,6 +11,7 @@ Route::view('/companies', 'guest.companies');
 Route::view('/support', 'guest.support');
 
 Route::get('/profile/{user}', [ProfileController::class, 'create']);
+Route::post('/profile/select', [ProfileController::class, 'select'])->name('profile.select');
 
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
