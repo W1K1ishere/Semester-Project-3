@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,11 @@ Route::post('/profile/select', [ProfileController::class, 'select'])->name('prof
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
+
+Route::get('/createUser', [RegisterController::class, 'addView']);
+Route::post('/sendMail', [RegisterController::class, 'sendMail']);
+Route::get('/createForm', [RegisterController::class, 'createFormView']);
+Route::post('/createNewUser', [RegisterController::class, 'createNewUser']);
 
 Route::get('/reset-request', [PasswordResetController::class, 'passwordResetView']);
 Route::post('/send', [PasswordResetController::class, 'sendResetEmail']);

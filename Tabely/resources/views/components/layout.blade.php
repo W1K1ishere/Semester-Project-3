@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 <!doctype html>
 <html lang="en" class="h-full">
 <head>
@@ -38,6 +39,11 @@
                 <div class="flex gap-0.5 pb-0.5">
                     @auth
                         <div class="pt-1.5">
+                            @if(Auth::user()->isAdmin)
+                                <a href="/createUser" class="text-center text-xs text-orange-500 hover:bg-gray-200 rounded-md px-3 py-2">
+                                    Create New User
+                                </a>
+                            @endif
                             <x-nav-link href="/profile/{{ auth()->user() }}">Edit Profile</x-nav-link>
                         </div>
                         <div>

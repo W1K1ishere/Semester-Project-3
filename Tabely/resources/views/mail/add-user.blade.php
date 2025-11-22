@@ -1,5 +1,5 @@
-<x-mail-layout title="Reset Your Password" text="Here is your link to reset your password:" :message="$message">
-    <a href="{{ $resetUrl }}" style="
+<x-mail-layout title="Create Profile" text="Here is your link to create new profile:" :message="$message">
+    <a href="{{ $createUrl }}" style="
                     display: inline-block;
                     background-color: #000;
                     color: #fff;
