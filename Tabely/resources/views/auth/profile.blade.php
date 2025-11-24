@@ -93,7 +93,7 @@
                         {{--Session length--}}
                         <div>
                             <p>Session length</p>
-                            <input value="">
+                            <input value="{{ $activeProfile->session_length }}">
                         </div>
                         {{--save, cancle, delete buttons--}}
                         <div>
