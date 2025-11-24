@@ -3,6 +3,7 @@
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,5 @@ Route::get('/reset-request', [PasswordResetController::class, 'passwordResetView
 Route::post('/send', [PasswordResetController::class, 'sendResetEmail']);
 Route::get('/resetPassword', [PasswordResetController::class, 'resetPasswordView']);
 Route::post('/reset', [PasswordResetController::class, 'reset']);
+
+Route::get('scheduler', [ScheduleController::class, 'view']);

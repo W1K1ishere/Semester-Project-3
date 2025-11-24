@@ -44,6 +44,11 @@
                                     Create New User
                                 </a>
                             @endif
+                            @if(Auth::user()->isAdmin)
+                                <a href="/scheduler" class="text-center text-xs text-orange-500 hover:bg-gray-200 rounded-md px-3 py-2">
+                                    Scheduler
+                                </a>
+                            @endif
                             <x-nav-link href="/profile/{{ auth()->user() }}">Edit Profile</x-nav-link>
                         </div>
                         <div>

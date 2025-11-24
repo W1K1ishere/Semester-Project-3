@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->integer('standing_height');
             $table->integer('sitting_height');
+            $table->integer('session_length');
             $table->timestamps();
         });
     }
