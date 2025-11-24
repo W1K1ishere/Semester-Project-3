@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Mail\AddUser;
 use App\Mail\PasswordReset;
+use App\Models\Department;
 use App\Models\Profile;
+use App\Models\Table;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +18,13 @@ use Illuminate\Support\Str;
 class RegisterController extends Controller
 {
     public function addView() {
-        return view('auth.createUser');
+        $departments = Department::all();
+        $tables = Table::all()->groupBy('department_id');
+
+        return view('auth.createUser', [
+            'departments' => $departments,
+            'tables' => $tables
+        ]);
     }
 
     public function sendMail(Request $request) {
@@ -27,6 +35,10 @@ class RegisterController extends Controller
         $user = User::create([
             'email' => $request->email,
         ]);
+
+        $user->departments()->attach($request->department);
+
+        $user->tables()->attach($request->table);
 
         $token = Password::createToken($user);
 
