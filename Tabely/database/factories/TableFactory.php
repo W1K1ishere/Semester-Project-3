@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class TableFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'current_height' => $this->faker->numberBetween($min = 10, $max = 100),
+            'department_id' => Department::factory(),
         ];
     }
 }

@@ -17,6 +17,7 @@
                 <select id="table" name="table">
                     <option value="">Select Table</option>
                 </select>
+                <script src="{{ asset('js/table-dropdown.js') }}"></script>
             </div>
             <div class="flex items-center gap-12">
                 <button class="w-36 h-8 bg-white rounded-lg">Add User</button>

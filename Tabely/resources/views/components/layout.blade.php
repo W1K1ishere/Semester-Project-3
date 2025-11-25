@@ -10,8 +10,8 @@
     <link rel="icon" type="image/png" href="{{ asset('icons/icon.png') }}" class="rounded-lg">
 
 </head>
-<body class="h-full">
-    <div class="min-h-full">
+<body class="h-full w-full">
+    <div class="min-h-full w-full">
         {{--navigation bar--}}
         <nav class="bg-white px-4 py-4 border-2">
             <div class="flex h-12 items-center justify-between">
@@ -63,7 +63,7 @@
             </div>
         </nav>
         {{--body--}}
-        <div>
+        <div class="w-full">
             {{ $slot }}
         </div>
         {{--footer--}}

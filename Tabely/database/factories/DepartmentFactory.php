@@ -17,7 +17,7 @@ class DepartmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'dep_name' => $this->faker->title(),
         ];
     }
 }

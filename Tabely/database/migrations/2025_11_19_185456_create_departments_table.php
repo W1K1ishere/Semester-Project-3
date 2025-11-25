@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('dep_name');
-            $table->time('break_time_start');
-            $table->time('break_time_end');
-            $table->time('cleaning_time_start');
-            $table->time('cleaning_time_end');
+            $table->time('break_time_start')->nullable();
+            $table->time('break_time_end')->nullable();
+            $table->time('cleaning_time_start')->nullable();
+            $table->time('cleaning_time_end')->nullable();
             $table->timestamps();
         });
     }

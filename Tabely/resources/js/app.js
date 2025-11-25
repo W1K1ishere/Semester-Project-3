@@ -1,2 +1,2 @@
 import './bootstrap';
-import './table-dropdown.js'
+import '../../public/js/table-dropdown.js'
