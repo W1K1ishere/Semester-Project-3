@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'simulator' => [
+    'base_url' => env('SERVICES_SIMULATOR_BASE_URL'),
+],
+
+
 ];

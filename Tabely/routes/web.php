@@ -30,3 +30,14 @@ Route::get('/resetPassword', [PasswordResetController::class, 'resetPasswordView
 Route::post('/reset', [PasswordResetController::class, 'reset']);
 
 Route::get('scheduler', [ScheduleController::class, 'view']);
+
+
+
+use App\Http\Controllers\DeskController;
+
+Route::get('/api/local-desks', [DeskController::class, 'index']);
+Route::get('/proxy/desks', function () {
+    $api = "http://localhost:8080/api/v2/E9Y2LxT4g1hQZ7aD8nR3mWx5P0qK6pV7/desks";
+
+    return Http::get($api)->json();
+});
