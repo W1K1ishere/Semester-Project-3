@@ -35,7 +35,9 @@
                         </div>
                     </div>
                     {{--user info--}}
-                    <form method="POST" action="/update">
+                    <form method="POST" action="{{ route('profile.update') }}">
+                        @csrf
+                        @method('PATCH')
                         <div class="flex flex-col gap-10 ml-11 mt-5">
                             {{--name and phone number--}}
                             <div class="flex flex-row gap-[54px]">
@@ -56,8 +58,12 @@
                         {{--password reset button and save button--}}
                         <div class="flex flex-col mt-8 gap-14">
                             <button form="send-form" class="text-orange-400 mr-[345px]">Reset password</button>
-                            <button type="submit" class="bg-orange-400 rounded-2xl w-40 h-12 ml-48">Save</button>
+                            <button form="send-form" type="submit" class="bg-orange-400 rounded-2xl w-40 h-12 ml-48">Save</button>
                         </div>
+                    </form>
+                    <form id="send-form" method="POST" action="/send" class="hidden">
+                        @csrf
+                        <input id="reset_mail" name="reset_mail" value="{{ $user->mail }}">
                     </form>
                 </div>
 
@@ -77,42 +83,34 @@
                     </div>
 
                     {{-- Edit profile --}}
-                    <div class="flex flex-col bg-orange-50/90 rounded-2xl py-5 px-12 w-[700px] h-[430px]">
-                        <!-- Bottom right content -->
-                        <p class="text-4xl font-semibold">{{ $activeProfile->name }} :</p>
-                        {{--standing height input--}}
-                        <div>
-                            <p>Standing Height</p>
-                            <input value="{{ $activeProfile->standing_height }}">
+                    <form method="POST" action="{{ route('profile.save') }}">
+                        @csrf
+                        @method('PATCH')
+                        <div class="flex flex-col bg-orange-50/90 rounded-2xl py-5 px-12 w-[700px] h-[430px] gap-6 ">
+                            <!-- Bottom right content -->
+                            <p class="text-4xl font-semibold">{{ $activeProfile->name }} :</p>
+                            {{--standing height input--}}
+                            <x-profile-edit-input id="standing_height" name="standing_height" text="Standing height: " :value="$activeProfile->standing_height"></x-profile-edit-input>
+                            {{--sitting height input--}}
+                            <x-profile-edit-input id="sitting_height" name="sitting_height" text="Sitting height: " :value="$activeProfile->sitting_height"></x-profile-edit-input>
+                            {{--Session length--}}
+                            <x-profile-edit-input id="session_length" name="session_length" text="Session length: " :value="$activeProfile->session_length"></x-profile-edit-input>
+                            {{--save, cancle, delete buttons--}}
+                            <div class="flex flex-row gap-5">
+                                <button type="submit" class="bg-orange-500 px-3 py-2 rounded-2xl ">Save</button>
+                                <button type="submit" form="delete-form" class="bg-transparent text-orange-500">Delete</button>
+                                <a class="bg-transparent text-black mt-2" href="/profile/cancel">Cancel</a>
+                            </div>
                         </div>
-                        {{--sitting height input--}}
-                        <div>
-                            <p>Sitting height</p>
-                            <input value="{{ $activeProfile->sitting_height }}">
-                        </div>
-                        {{--Session length--}}
-                        <div>
-                            <p>Session length</p>
-                            <input value="{{ $activeProfile->session_length }}">
-                        </div>
-                        {{--save, cancle, delete buttons--}}
-                        <div>
-                            <button>Save</button>
-                            <button>Cancel</button>
-                            <button>Delete</button>
-                        </div>
-                    </div>
-
+                    </form>
+                    <form id="delete-form" method="POST" action="/profile/delete" class="hidden">
+                        @csrf
+                        @method('DELETE')
+                    </form>
                 </div>
             </div>
 
         </div>
     </div>
-
-    <form id="send-form" method="POST" action="/send" class="hidden">
-        @csrf
-        @method('send')
-        <input id="reset_mail" name="reset_mail" value="{{ $user->mail }}">
-    </form>
 </body>
 </html>
