@@ -19,7 +19,9 @@ class RegisterController extends Controller
 {
     public function addView() {
         $departments = Department::all();
-    $tables = Table::where('department_id', '=', 1)->get(); // <-- this is a collection of Table models
+    $tables = Table::where('isAssigned', '=', 0)->get(); // <-- this is a collection of Table models
+    $tables = $tables->groupBy('department_id');
+
 
     return view('auth.createUser', [
         'departments' => $departments,

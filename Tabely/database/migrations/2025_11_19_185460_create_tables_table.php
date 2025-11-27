@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('current_height');
             $table->foreignId('department_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->boolean('isAssigned');
             $table->timestamps();
         });
     }
