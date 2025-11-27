@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const option = document.createElement("option");
             option.value = desk_id;
-            option.textContent = desk_id; // display MAC as label
+            option.textContent = desk_id; 
 
             dropdown.appendChild(option);
         });
