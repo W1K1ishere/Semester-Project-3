@@ -58,7 +58,7 @@
                         {{--password reset button and save button--}}
                         <div class="flex flex-col mt-8 gap-14">
                             <button form="send-form" class="text-orange-400 mr-[345px]">Reset password</button>
-                            <button form="send-form" type="submit" class="bg-orange-400 rounded-2xl w-40 h-12 ml-48">Save</button>
+                            <button type="submit" class="bg-orange-400 rounded-2xl w-40 h-12 ml-48">Save</button>
                         </div>
                     </form>
                     <form id="send-form" method="POST" action="/send" class="hidden">

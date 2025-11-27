@@ -25,11 +25,15 @@ class ProfileController extends Controller
     }
 
     public function saveProfile(Request $request){
+        $request->validate([
+            'sitting_height' => 'required',
+            'standing_height' => 'required',
+            'session_length' => 'required',
+        ]);
+
         $profile = Profile::find(auth()->user()->picked_profile);
-        $profile->sitting_height = $request->sitting_height;
-        $profile->standing_height = $request->standing_height;
-        $profile->session_length = $request->session_length;
-        $profile->save();
+        $profile->update([$request->only('sitting_height', 'standing_height', 'session_length')]);
+
         return back();
     }
 
@@ -50,12 +54,17 @@ class ProfileController extends Controller
     }
 
     public function updateUser(Request $request){
-        $user = Auth()->user();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->height = $request->height;
-        $user->save();
+        $user = auth()->user();
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'height' => 'nullable|numeric'
+        ]);
+
+        $user->update($request->only(['name', 'email', 'phone', 'height']));
+
         return back();
     }
 }
