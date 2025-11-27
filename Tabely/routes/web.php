@@ -6,6 +6,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DeskController;
+
 
 Route::view('/', 'guest.welcome');
 Route::view('/features', 'guest.features');
@@ -38,10 +40,6 @@ Route::get('/scheduler', [ScheduleController::class, 'view']);
 Route::post('/scheduler/select', [ScheduleController::class, 'select'])->name('scheduler.select');
 Route::post('/scheduler/saveBreak', [ScheduleController::class, 'saveBreak'])->name('scheduler.saveBreak');
 Route::post('/scheduler/saveCleaning', [ScheduleController::class, 'saveCleaning'])->name('scheduler.saveCleaning');
-
-
-
-use App\Http\Controllers\DeskController;
 
 Route::get('/api/local-desks', [DeskController::class, 'index']);
 Route::get('/proxy/desks', function () {

@@ -5,7 +5,9 @@
             <div class="flex flex-col gap-4 items-center">
                 <x-form-input id="email" name="email" required type="email" :value="old('email')" placeholder="Email"></x-form-input>
                 <x-form-error name="email"></x-form-error>
-
+                <script>
+                    window.tables = @json($tables);
+                </script>
                 <select id="department" name="department">
                     @foreach($departments as $department)
                         <option value="{{ $department->id }}">{{ $department->dep_name }}</option>
@@ -23,9 +25,6 @@
             </div>
         </div>
     </form>
-
-
-
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
@@ -46,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const option = document.createElement("option");
             option.value = desk_id;
-            option.textContent = desk_id; 
+            option.textContent = desk_id;
 
             dropdown.appendChild(option);
         });

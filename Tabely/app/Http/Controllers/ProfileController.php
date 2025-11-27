@@ -68,7 +68,7 @@ class ProfileController extends Controller
             'phone' => 'required',
             'height' => 'nullable|numeric'
         ]);
-
+        Profile::where('user_id', $user->id)->where('name', 'default')->update(['sitting_height' => $request->height-100, 'standing_height' => $request->height-60]);
         $user->update($request->only(['name', 'email', 'phone', 'height']));
 
         return back();
