@@ -47,3 +47,8 @@ Route::get('/proxy/desks', function () {
 
     return Http::get($api)->json();
 });
+
+
+use App\Http\Controllers\TableController;
+
+Route::get('/tables/dropdown', [TableController::class, 'showDropdown']);

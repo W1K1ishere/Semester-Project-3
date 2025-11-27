@@ -19,12 +19,12 @@ class RegisterController extends Controller
 {
     public function addView() {
         $departments = Department::all();
-        $tables = Table::all()->groupBy('department_id');
+    $tables = Table::where('department_id', '=', 1)->get(); // <-- this is a collection of Table models
 
-        return view('auth.createUser', [
-            'departments' => $departments,
-            'tables' => $tables
-        ]);
+    return view('auth.createUser', [
+        'departments' => $departments,
+        'tables' => $tables
+    ]);
     }
 
     public function sendMail(Request $request) {

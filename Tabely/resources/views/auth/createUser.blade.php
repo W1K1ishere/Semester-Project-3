@@ -14,10 +14,15 @@
                     @endforeach
                 </select>
 
-                <select id="table" name="table">
-                    <option value="">Select Table</option>
-                </select>
-                <script src="{{ asset('js/table-dropdown.js') }}"></script>
+                <select id="table" name="table" class="form-control">
+        <option value="">Select Table</option>
+        @foreach($tables as $table)
+            <option value="{{ $table->id }}">
+                {{ $table->desk_mac }}
+            </option>
+        @endforeach
+    </select>
+                
             </div>
 
             <div class="flex items-center gap-12">
@@ -26,37 +31,6 @@
         </div>
     </form>
 
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-    const dropdown = document.getElementById("table");
-
-    try {
-        const response = await fetch("/proxy/desks");
-
-        const json = await response.json();
-
-        const desks = json.desks ?? json;
-
-        dropdown.innerHTML = '<option value="">Select Table</option>';
-
-        desks.forEach(desk => {
-            // desk is just a string, like "cd:fb:1a:53:fb:e6"
-            const desk_id = desk;
-
-            const option = document.createElement("option");
-            option.value = desk_id;
-            option.textContent = desk_id;
-
-            dropdown.appendChild(option);
-        });
-
-    } catch (err) {
-        console.error("🚨 Fetch error:", err);
-    }
-});
-
-
-</script>
 
 
 
