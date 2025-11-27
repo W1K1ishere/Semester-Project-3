@@ -42,10 +42,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function departments()
+    public function departments(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Department::class, 'works_in', 'user_id', 'department_id');
     }
-
-
 }
