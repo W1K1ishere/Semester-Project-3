@@ -44,11 +44,6 @@ class User extends Authenticatable
 
     public function departments(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Department::class, 'works_in', 'id', 'dep_id');
-    }
-
-    public function tables(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Table::class, 'is_assigned', 'id', 'id');
+        return $this->belongsToMany(Department::class, 'works_in', 'user_id', 'department_id');
     }
 }

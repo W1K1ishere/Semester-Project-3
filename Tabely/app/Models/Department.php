@@ -12,6 +12,6 @@ class Department extends Model
 
     public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'works_in', 'dep_id', 'user_id');
+        return $this->belongsToMany(User::class, 'works_in', 'department_id', 'user_id');
     }
 }
