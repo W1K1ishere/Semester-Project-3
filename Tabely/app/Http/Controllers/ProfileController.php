@@ -42,13 +42,16 @@ class ProfileController extends Controller
     }
 
     public function destroy(){
-        $profile = Profile::find(\Auth::user()->picked_profile);
+        $user = Auth()->user();
+        $profile = Profile::find($user->picked_profile);
         if($profile->name == "default"){
             return back();
         }
         else
         {
             $profile->delete();
+            $newProfile = Profile::where('user_id', $user->id)->first();
+            $user->update(['picked_profile' => $newProfile->id]);
             return back();
         }
     }
