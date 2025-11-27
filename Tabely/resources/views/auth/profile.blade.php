@@ -23,7 +23,13 @@
                 {{-- Left side profile info --}}
                 <div class="flex flex-col bg-orange-50/90 w-[550px] rounded-2xl my-10 ml-10 gap-10">
                     <!-- Left content -->
-                    <img src="{{asset('avatars/Default.jpg')}}" alt="Profile picture" class="rounded-full w-72 h-72 mt-10 ml-32">
+                    <div class="relative w-72 h-72 mt-10 ml-32">
+                        <img src="{{ asset('avatars/Default.jpg') }}" class="rounded-full w-72 h-72 shadow-2xl">
+                        <a href="/" class="absolute -top-6 -left-28 size-28 bg-white rounded-full p-1 shadow active:scale-90 transition-transform">
+                            <img src="{{ asset('images/logo.png') }}" alt="logo">
+                        </a>
+                    </div>
+
                     {{--Edit profile text and small informations--}}
                     <div class="flex flex-row">
                         <p class="font-bold text-2xl ml-12">My Profile</p>
@@ -63,7 +69,7 @@
                     </form>
                     <form id="send-form" method="POST" action="/send" class="hidden">
                         @csrf
-                        <input id="reset_mail" name="reset_mail" value="{{ $user->mail }}">
+                        <input id="email" name="email" type="email" value="{{ $user->mail }}">
                     </form>
                 </div>
 
