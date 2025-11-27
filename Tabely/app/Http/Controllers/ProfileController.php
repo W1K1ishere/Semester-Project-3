@@ -32,7 +32,10 @@ class ProfileController extends Controller
         ]);
 
         $profile = Profile::find(auth()->user()->picked_profile);
-        $profile->update([$request->only('sitting_height', 'standing_height', 'session_length')]);
+        $profile->sitting_height = $request->sitting_height;
+        $profile->standing_height = $request->standing_height;
+        $profile->session_length = $request->session_length;
+        $profile->save();
 
         return back();
     }

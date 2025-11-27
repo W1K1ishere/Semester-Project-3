@@ -33,7 +33,11 @@ Route::post('/send', [PasswordResetController::class, 'sendResetEmail']);
 Route::get('/resetPassword', [PasswordResetController::class, 'resetPasswordView']);
 Route::post('/reset', [PasswordResetController::class, 'reset']);
 
-Route::get('scheduler', [ScheduleController::class, 'view']);
+
+Route::get('/scheduler', [ScheduleController::class, 'view']);
+Route::post('/scheduler/select', [ScheduleController::class, 'select'])->name('scheduler.select');
+Route::post('/scheduler/saveBreak', [ScheduleController::class, 'saveBreak'])->name('scheduler.saveBreak');
+Route::post('/scheduler/saveCleaning', [ScheduleController::class, 'saveCleaning'])->name('scheduler.saveCleaning');
 
 
 

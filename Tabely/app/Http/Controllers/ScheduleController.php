@@ -35,7 +35,8 @@ class ScheduleController extends Controller
 
         $department = Department::find(session('selected_department'));
 
-        $department->update([$request->only('break_start', 'break_end')]);
+        $department->break_time_start = $request->break_start;
+        $department->break_time_end = $request->break_end;
         $department->save();
 
         return back();
@@ -50,7 +51,8 @@ class ScheduleController extends Controller
 
         $department = Department::find(session('selected_department'));
 
-        $department->update([$request->only('cleaning_start', 'cleaning_end')]);
+        $department->cleaning_time_start = $request->cleaning_start;
+        $department->cleaning_time_end = $request->cleaning_end;
         $department->save();
 
         return back();
