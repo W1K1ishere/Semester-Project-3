@@ -38,7 +38,7 @@ class RegisterController extends Controller
 
         $user->departments()->attach($request->department);
 
-        $user->tables()->attach($request->table);
+        $request->table->update(['user_id'=>$user->id]);
 
         $token = Password::createToken($user);
 
