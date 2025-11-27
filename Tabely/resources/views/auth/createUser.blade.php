@@ -15,6 +15,7 @@
                 <select id="table" name="table">
                     <option value="">Select Table</option>
                 </select>
+                <script src="{{ asset('js/table-dropdown.js') }}"></script>
             </div>
 
             <div class="flex items-center gap-12">

@@ -14,6 +14,10 @@ Route::view('/support', 'guest.support');
 
 Route::get('/profile/{user}', [ProfileController::class, 'create']);
 Route::post('/profile/select', [ProfileController::class, 'select'])->name('profile.select');
+Route::patch('/profile/save', [ProfileController::class, 'saveProfile'])->name('profile.save');
+Route::get('/profile/cancel', [ProfileController::class, 'cancel']);
+Route::delete('/profile/delete', [ProfileController::class, 'destroy']);
+Route::patch('/profile/update', [ProfileController::class, 'updateUser'])->name('profile.update');
 
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
