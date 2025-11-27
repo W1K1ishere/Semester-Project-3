@@ -37,8 +37,8 @@
                     {{--small info--}}
                     <div class="flex flex-col mt-5 ml-44">
                         <small class="text-gray-400">Created: {{ $user->created_at }}</small>
-                        <small class="text-gray-400">Assigned Tables: {{ Table::where('user.id' == $user->id)->id }}</small>
-                        <small class="text-gray-400">Department: </small>
+                        <small class="text-gray-400">Assigned Tables: {{ Table::where('user_id', $user->id)->value('id') }}</small>
+                        <small class="text-gray-400">Department: {{ $user->departments->pluck('dep_name')->join(', ') }}</small>
                     </div>
                 </div>
                 {{--user info--}}

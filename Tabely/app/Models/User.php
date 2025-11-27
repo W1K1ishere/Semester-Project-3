@@ -42,13 +42,10 @@ class User extends Authenticatable
         ];
     }
 
-    public function departments(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function departments()
     {
-        return $this->belongsToMany(Department::class, 'works_in', 'id', 'dep_id');
+        return $this->belongsToMany(Department::class, 'works_in', 'user_id', 'department_id');
     }
 
-    public function tables(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Table::class, 'is_assigned', 'id', 'id');
-    }
+
 }
