@@ -32,17 +32,6 @@ class SyncDesks extends Command
             );
         }
 
-        $this->info("Desks synced.");
+        $this->info('Desks synced.');
     }
-
-use App\Models\Table;
-
-public function edit()
-{
-    // Fetch all tables where department_id != 1
-    $tables = Table::where('department_id', '!=', 1)->get();
-
-    // Pass to view
-    return view('createUser', compact('tables'));
-}
 }
