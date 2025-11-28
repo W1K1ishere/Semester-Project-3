@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
@@ -21,6 +22,12 @@ Route::get('/profile/cancel', [ProfileController::class, 'cancel']);
 Route::delete('/profile/delete', [ProfileController::class, 'destroy']);
 Route::patch('/profile/update', [ProfileController::class, 'updateUser'])->name('profile.update');
 
+Route::get('/admin', [AdminController::class, 'adminView']);
+Route::get('admin/addUser', [AdminController::class, 'addUserView']);
+Route::get('admin/users', [AdminController::class, 'usersView']);
+Route::get('admin/tables', [AdminController::class, 'tablesView']);
+Route::get('admin/departments', [AdminController::class, 'departmentsView']);
+
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
@@ -35,8 +42,7 @@ Route::post('/send', [PasswordResetController::class, 'sendResetEmail']);
 Route::get('/resetPassword', [PasswordResetController::class, 'resetPasswordView']);
 Route::post('/reset', [PasswordResetController::class, 'reset']);
 
-
-Route::get('/scheduler', [ScheduleController::class, 'view']);
+Route::get('/admin/scheduler', [AdminController::class, 'schedulerView']);
 Route::post('/scheduler/select', [ScheduleController::class, 'select'])->name('scheduler.select');
 Route::post('/scheduler/saveBreak', [ScheduleController::class, 'saveBreak'])->name('scheduler.saveBreak');
 Route::post('/scheduler/saveCleaning', [ScheduleController::class, 'saveCleaning'])->name('scheduler.saveCleaning');
