@@ -19,7 +19,8 @@ class UserSeeder extends Seeder
         'password'=>bcrypt('testtest'),
         'height'=>190,
         'phone'=>'+12345',
-        'isAdmin'=>true
+        'isAdmin'=>true,
+        'picked_profile'=>1
     ],
 ]);
 
