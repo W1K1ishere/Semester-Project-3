@@ -15,13 +15,13 @@
                 </select>
 
                 <select id="table" name="table" class="form-control">
-        <option value="">Select Table</option>
-        @foreach($tables as $table)
-            <option value="{{ $table->id }}">
-                {{ $table->desk_mac }}
-            </option>
-        @endforeach
-    </select>
+    <option value="">Select Table</option>
+    @foreach($tables as $table)
+        <option value="{{ $table->id }}">
+            {{ $table->desk_mac }}
+        </option>
+    @endforeach
+</select>
                 
             </div>
 

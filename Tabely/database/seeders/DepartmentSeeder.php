@@ -10,15 +10,7 @@ class DepartmentSeeder extends Seeder
     public function run(): void
     {
         DB::table('departments')->insert([
-    [
-        'dep_name' => 'No department',
-        'break_time_start' => '10:00:00',
-        'break_time_end'   => '10:15:00',
-        'cleaning_time_start' => '14:00:00',
-        'cleaning_time_end'   => '14:20:00',
-        'created_at' => now(),
-        'updated_at' => now(),
-    ],
+
     [
         'dep_name' => 'Quality',
         'break_time_start' => '11:00:00',

@@ -16,7 +16,7 @@ class SyncDesks extends Command
         $response = Http::get('http://127.0.0.1:8080/api/v2/E9Y2LxT4g1hQZ7aD8nR3mWx5P0qK6pV7/desks');
 
         if ($response->failed()) {
-            $this->error('Failed to fetch desks.');
+            $this->error('Failed to fetch desks');
             return;
         }
 
@@ -24,14 +24,17 @@ class SyncDesks extends Command
 
         foreach ($desks as $desk) {
             Table::firstOrCreate(
-                ['desk_mac' => $desk],
-                [
-                    'current_height' => 0,
-                    'department_id'  => 1,
-                ]
-            );
+    ['desk_mac' => $desk],
+    [
+        'current_height' => 0,
+        'department_id'  => null,
+        'user_id'        => null,
+        'isAssigned'     => false,
+    ]
+);
         }
 
-        $this->info('Desks synced.');
+        $this->info('Desks synced');
     }
 }
+
