@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -37,6 +38,14 @@ class AdminController extends Controller
 
     public function addUserView()
     {
-        return view('admin.admin-addUser');
+        $departments = Department::all();
+        $tables = Table::where('isAssigned', false)->get();
+        $tables = $tables->groupBy('department_id');
+
+
+        return view('admin.admin-addUser', [
+            'departments' => $departments,
+            'tables' => $tables
+        ]);
     }
 }

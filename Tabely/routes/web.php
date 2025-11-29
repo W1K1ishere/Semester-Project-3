@@ -32,7 +32,6 @@ Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
 
-Route::get('/createUser', [RegisterController::class, 'addView']);
 Route::post('/sendMail', [RegisterController::class, 'sendMail']);
 Route::get('/createForm', [RegisterController::class, 'createFormView']);
 Route::post('/createNewUser', [RegisterController::class, 'createNewUser']);
