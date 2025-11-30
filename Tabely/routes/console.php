@@ -10,4 +10,7 @@ Artisan::command('inspire', function () {
 
 use Illuminate\Support\Facades\Schedule;
 
+
 Schedule::command('desks:sync')->everySecond();
+
+Schedule::command('wifi2ble:checkbreak')->everySecond();
