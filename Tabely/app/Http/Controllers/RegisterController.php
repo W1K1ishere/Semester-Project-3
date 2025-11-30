@@ -21,6 +21,8 @@ class RegisterController extends Controller
     public function sendMail(Request $request) {
         $request->validate([
             'email' => ['required', 'email', 'unique:users'],
+            'table' => 'required',
+            'department' => 'required',
         ]);
 
         $user = User::create([
@@ -34,7 +36,7 @@ class RegisterController extends Controller
 
         $token = Password::createToken($user);
 
-        //Mail::to($user->email)->send(new AddUser($user, $token));
+        Mail::to($user->email)->send(new AddUser($user, $token));
 
         return redirect('/');
     }

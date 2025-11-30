@@ -15,6 +15,7 @@
             @csrf
             <div class="w-full flex flex-col px-10 gap-8 py-20 items-center">
                 <input id="dep_name" name="dep_name" type="text" required placeholder="Department name" class="text-center py-2 rounded-3xl bg-white/80 focus:outline-none focus:ring-orange-500/70 focus:ring-2 focus:bg-gray-200/70 hover:bg-gray-100/70 hover:scale-95 transition-transform focus:scale-95">
+                <x-form-error name="dep_name"></x-form-error>
                 <div class="flex flex-col items-center">
                     <div class="flex flex-col items-center ">
                         <label class="text-3xl">Set Break Time</label>
@@ -25,6 +26,8 @@
                         <input id="break_end" name="break_end" type="time" required class="bg-black text-white rounded-3xl px-3 py-2">
                     </div>
                 </div>
+                <x-form-error name="break_star"></x-form-error>
+                <x-form-error name="break_end"></x-form-error>
                 <div class="flex flex-col items-center">
                     <div class="flex flex-col items-center">
                         <label class="text-3xl">Set Cleaning Time</label>
@@ -35,6 +38,8 @@
                         <input id="cleaning_end" name="break_end" type="time" required class="bg-black text-white rounded-3xl px-3 py-2">
                     </div>
                 </div>
+                <x-form-error name="cleaning_star"></x-form-error>
+                <x-form-error name="cleaning_end"></x-form-error>
                 <button type="submit" class="w-[calc(40%)] bg-orange-500/70 text-white rounded-3xl px-3 py-2 hover:bg-orange-600/70 hover:scale-95 transition-transform active:bg-orange-700/70 active:scale-90">Create</button>
             </div>
         </form>

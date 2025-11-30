@@ -4,7 +4,7 @@
         <form method="POST" action="/sendMail" class="w-full flex justify-center">
             @csrf
             <div class="flex flex-col gap-10 w-[calc(40%)]">
-                <input id="email" name="email" required type="email" value="{{ old('email') }}" placeholder="Email" class="text-center py-2 rounded-3xl bg-white/80 focus:outline-none focus:ring-orange-500/70 focus:ring-2 focus:bg-gray-200/70 hover:bg-gray-100/70 hover:scale-95 transition-transform focus:scale-95">
+                <input id="email" name="email" type="email" value="{{ old('email') }}" placeholder="Email" class="text-center py-2 rounded-3xl bg-white/80 focus:outline-none focus:ring-orange-500/70 focus:ring-2 focus:bg-gray-200/70 hover:bg-gray-100/70 hover:scale-95 transition-transform focus:scale-95">
                 <x-form-error name="email"></x-form-error>
                 <script>
                     window.tables = @json($tables);
@@ -18,6 +18,7 @@
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                         <img src="{{ asset('images/drop-arrow.png') }}" class="size-3" alt="dropdown menu arrow">
                     </div>
+                    <x-form-error name="department"></x-form-error>
                 </div>
                 <div class="relative w-full hover:scale-95 transition-transform focus:scale-95">
                     <select id="table" name="table" style="text-align-last: center" class="form-control font-light block py-1 rounded-3xl w-full appearance-none bg-white/80 focus:outline-none focus:ring-orange-500/70 focus:ring-2 focus:bg-gray-200/70 hover:bg-gray-100/70">
@@ -35,6 +36,7 @@
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                         <img src="{{ asset('images/drop-arrow.png') }}" class="size-3" alt="dropdown menu arrow">
                     </div>
+                    <x-form-error name="table"></x-form-error>
                 </div>
                 <script src="{{ asset('js/table-dropdown.js') }}"></script>
                 <button type="submit" class="bg-orange-500/70 text-white rounded-3xl px-3 py-2 hover:bg-orange-600/70 hover:scale-95 transition-transform active:bg-orange-700/70 active:scale-90">Add New User</button>

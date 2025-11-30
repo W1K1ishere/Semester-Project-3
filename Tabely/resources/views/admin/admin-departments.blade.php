@@ -27,6 +27,7 @@
                 <label class="bg-white/70 text-center py-2 rounded-3xl text-gray-400">{{ $selectedDep?->break_time_end ? date('H:i', strtotime($selectedDep->break_time_end)) : 'End of the break time' }}</label>
                 <label class="bg-white/70 text-center py-2 rounded-3xl text-gray-400">{{ $selectedDep?->cleaning_time_start ? date('H:i', strtotime($selectedDep->cleaning_time_start)) : 'Start of the cleaning time' }}</label>
                 <label class="bg-white/70 text-center py-2 rounded-3xl text-gray-400">{{ $selectedDep?->cleaning_time_end ? date('H:i', strtotime($selectedDep->cleaning_time_end)) : 'End of the cleaning time' }}</label>
+                <x-form-error name="dep_name"></x-form-error>
                 <div class="flex flex-col">
                     <a href="/admin/departments/create" class="text-xs text-orange-500/70 hover:text-orange-600 active:text-orange-700 active:scale-95 transition-transform">Create New</a>
                     <button type="submit" @disabled($selectedDep == null) class="py-2 mx-20 rounded-3xl {{ $selectedDep == null ? 'bg-gray-200 text-gray-400' : 'bg-orange-500/70 text-white hover:bg-orange-600/70 active:bg-orange-700/70 hover:scale-95 active:scale-90 transition-transform' }} ">Save</button>

@@ -21,6 +21,14 @@ class DepartmentController extends Controller
 
     public function create(Request $request)
     {
+        $request->validate([
+            'dep_name' => 'required',
+            'cleaning_time_start' => 'required',
+            'cleaning_time_end' => 'required',
+            'break_time_start' => 'required',
+            'break_time_start'
+        ]);
+
         Department::create([
             'dep_name' => $request->dep_name,
             'cleaning_time_start' => $request->cleaning_start,
@@ -35,6 +43,7 @@ class DepartmentController extends Controller
     {
         $request->validate([
             'dep_id' => 'required',
+            'dep_name' => 'required',
         ]);
 
         $department = Department::find($request->dep_id);

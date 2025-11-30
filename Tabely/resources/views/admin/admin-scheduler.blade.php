@@ -30,6 +30,8 @@
                 <div>
                     <input id="break_start" name="break_start" type="time" class="bg-black text-white rounded-3xl px-3 py-2" value="{{ $selectedDep?->break_time_start ? date('H:i', strtotime($selectedDep->break_time_start)) : '' }}">
                     <input id="break_end" name="break_end" type="time" class="bg-black text-white rounded-3xl px-3 py-2" value="{{ $selectedDep?->break_time_end ? date('H:i', strtotime($selectedDep->break_time_end)) : '' }}">
+                    <x-form-error name="break_start"></x-form-error>
+                    <x-form-error name="break_end"></x-form-error>
                 </div>
                 <button type="submit" class="bg-orange-500/70 text-white rounded-3xl px-3 py-2 hover:bg-orange-600/70 hover:scale-95 transition-transform active:bg-orange-700/70 active:scale-90">Save new break time</button>
             </form>
@@ -40,11 +42,13 @@
             <img src="{{ asset('images/cleaning.png') }}" alt="broom" class="size-12">
         </div>
         <div>
-            <form method="POST" action="{{ route('scheduler.saveBreak') }}" class="flex flex-col gap-5">
+            <form method="POST" action="{{ route('scheduler.saveCleaning') }}" class="flex flex-col gap-5">
                 @csrf
                 <div>
-                    <input id="break_start" name="break_start" type="time" class="bg-black text-white rounded-3xl px-3 py-2" value="{{ $selectedDep?->cleaning_time_start ? date('H:i', strtotime($selectedDep->break_time_start)) : '' }}">
-                    <input id="break_end" name="break_end" type="time" class="bg-black text-white rounded-3xl px-3 py-2" value="{{ $selectedDep?->cleaning_time_end ? date('H:i', strtotime($selectedDep->break_time_end)) : '' }}">
+                    <input id="cleaning_start" name="cleaning_start" type="time" class="bg-black text-white rounded-3xl px-3 py-2" value="{{ $selectedDep?->cleaning_time_start ? date('H:i', strtotime($selectedDep->cleaning_time_start)) : '' }}">
+                    <input id="cleaning_end" name="cleaning_end" type="time" class="bg-black text-white rounded-3xl px-3 py-2" value="{{ $selectedDep?->cleaning_time_end ? date('H:i', strtotime($selectedDep->cleaning_time_end)) : '' }}">
+                    <x-form-error name="cleaning_start"></x-form-error>
+                    <x-form-error name="cleaning_end"></x-form-error>
                 </div>
                 <button type="submit" class="bg-orange-500/70 text-white rounded-3xl px-3 py-2 hover:bg-orange-600/70 hover:scale-95 transition-transform active:bg-orange-700/70 active:scale-90">Save new cleaning time</button>
             </form>
