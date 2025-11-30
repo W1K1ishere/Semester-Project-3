@@ -15,7 +15,18 @@ class AdminController extends Controller
 
     public function departmentsView()
     {
-        return view('admin.admin-departments');
+        $departments = Department::orderBy('id', 'asc')->simplePaginate(5);
+        return view('admin.admin-departments', [
+            'departments' => $departments
+        ]);
+    }
+
+    public function createDepartmentView()
+    {
+        $departments = Department::orderBy('id', 'asc')->simplePaginate(5);
+        return view('admin.admin-departments-create', [
+            'departments' => $departments
+        ]);
     }
 
     public function schedulerView()

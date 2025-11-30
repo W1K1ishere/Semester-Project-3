@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
@@ -23,15 +24,14 @@ Route::delete('/profile/delete', [ProfileController::class, 'destroy']);
 Route::patch('/profile/update', [ProfileController::class, 'updateUser'])->name('profile.update');
 
 Route::get('/admin', [AdminController::class, 'adminView']);
-Route::get('admin/addUser', [AdminController::class, 'addUserView']);
 Route::get('admin/users', [AdminController::class, 'usersView']);
 Route::get('admin/tables', [AdminController::class, 'tablesView']);
-Route::get('admin/departments', [AdminController::class, 'departmentsView']);
 
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
 
+Route::get('admin/addUser', [AdminController::class, 'addUserView']);
 Route::post('/sendMail', [RegisterController::class, 'sendMail']);
 Route::get('/createForm', [RegisterController::class, 'createFormView']);
 Route::post('/createNewUser', [RegisterController::class, 'createNewUser']);
@@ -45,6 +45,13 @@ Route::get('/admin/scheduler', [AdminController::class, 'schedulerView']);
 Route::post('/scheduler/select', [ScheduleController::class, 'select'])->name('scheduler.select');
 Route::post('/scheduler/saveBreak', [ScheduleController::class, 'saveBreak'])->name('scheduler.saveBreak');
 Route::post('/scheduler/saveCleaning', [ScheduleController::class, 'saveCleaning'])->name('scheduler.saveCleaning');
+
+Route::get('admin/departments', [AdminController::class, 'departmentsView']);
+Route::get('/admin/departments/create', [AdminController::class, 'createDepartmentView']);
+Route::post('/admin/departments/create/create', [DepartmentController::class, 'create']);
+Route::post('/admin/departments/select', [DepartmentController::class, 'select']);
+Route::patch('/admin/departments/update', [DepartmentController::class, 'update']);
+Route::delete('/admin/departments/delete', [DepartmentController::class, 'destroy']);
 
 Route::get('/api/local-desks', [DeskController::class, 'index']);
 Route::get('/proxy/desks', function () {

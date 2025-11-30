@@ -76,6 +76,7 @@ class RegisterController extends Controller
         );
 
         Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        request()->session()->regenerate();
 
         return $status == Password::PASSWORD_RESET
             ? redirect('/')
