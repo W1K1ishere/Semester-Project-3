@@ -54,7 +54,7 @@
                         style="text-align-last: center"
                         class="font-light block py-1 rounded-3xl w-full appearance-none bg-white/80 focus:outline-none focus:ring-orange-500/70 focus:ring-2 focus:bg-gray-200/70 hover:bg-gray-100/70">
                     <option
-                        value="{{ $selectedTable?->department_id }}">{{ Department::find($selectedTable?->department_id)?->dep_name ? Department::find($selectedTable?->department_id)?->dep_name : 'Select Department' }}</option>
+                        value="{{ $selectedTable?->department_id }}">{{ Department::find($selectedTable?->department_id)?->dep_name ? Department::find($selectedTable?->department_id)?->dep_name : 'Select department' }}</option>
                     @foreach($departments as $department)
                         <option value="{{ $department->id }}">{{ $department->dep_name }}</option>
                     @endforeach
