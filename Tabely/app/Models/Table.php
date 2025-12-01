@@ -10,9 +10,5 @@ class Table extends Model
     /** @use HasFactory<\Database\Factories\TableFactory> */
     use HasFactory;
 
-    protected $fillable = [
-    'desk_mac',
-    'current_height',
-    'department_id'
-];
+    protected $guarded = [];
 }

@@ -34,6 +34,8 @@ public function addView()
     public function sendMail(Request $request) {
         $request->validate([
             'email' => ['required', 'email', 'unique:users'],
+            'table' => 'required',
+            'department' => 'required',
         ]);
 
         $user = User::create([
@@ -88,6 +90,7 @@ public function addView()
         );
 
         Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        request()->session()->regenerate();
 
         return $status == Password::PASSWORD_RESET
             ? redirect('/')
