@@ -8,9 +8,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
-class CheckTimeAndRunCommand extends Command
+class CheckTimeAndRunCommandEndCleaning extends Command
 {
-    protected $signature = 'wifi2ble:checktime';
+    protected $signature = 'wifi2ble:checktimecleaningend';
     protected $description = 'Check the time against department cleaning times and update table heights based on user profiles';
 
     public function handle()
@@ -20,13 +20,13 @@ Log::info("⏱ Scheduler running at {$now}");
 
 // get departments scheduled at this time
 $departments = DB::table('departments')
-    ->where('cleaning_time_start', $now)
+    ->where('cleaning_time_end', $now)
     ->get();
 
 Log::info("Departments found:", $departments->toArray());
 
 if ($departments->isEmpty()) {
-    Log::info("No departments scheduled to start cleaning at {$now}");
+    Log::info("No departments scheduled to end cleaning at {$now}");
     return;
 }
 
@@ -79,8 +79,8 @@ foreach ($departments as $department) {
         }
 
         // sendjob with standing_height
-        Log::info("Dispatching job for table {$table->id} with standing_height {$profile->standing_height}");
-        SendWifi2BleRequestJob::dispatch($table->id, $profile->standing_height*10);
+        Log::info("Dispatching job for table {$table->id} with standing_height {$profile->sitting_height}");
+        SendWifi2BleRequestJob::dispatch($table->id, $profile->sitting_height*10);
     }
 }
 

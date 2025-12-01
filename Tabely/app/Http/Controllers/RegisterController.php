@@ -17,6 +17,19 @@ use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
+public function addView() 
+{
+    $departments = Department::all();
+
+    // Show only desks that are NOT assigned
+    $tables = Table::where('isAssigned', false)->get();
+
+    return view('auth.createUser', [
+        'departments' => $departments,
+        'tables' => $tables
+    ]);
+}
+
 
     public function sendMail(Request $request) {
         $request->validate([
@@ -31,8 +44,7 @@ class RegisterController extends Controller
 
         $user->departments()->attach($request->department);
 
-        $table = Table::find($request->table);
-        $table->update(['user_id' => $user->id, 'isAssigned' => true]);
+        $user->tables()->attach($request->table);
 
         $token = Password::createToken($user);
 

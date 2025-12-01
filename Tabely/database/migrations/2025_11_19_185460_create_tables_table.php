@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('desk_mac')->unique();
             $table->integer('current_height');
-            $table->foreignId('department_id')->constrained();
+            $table->foreignId('department_id')->nullable()->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->boolean('isAssigned')->default(false);
             $table->timestamps();

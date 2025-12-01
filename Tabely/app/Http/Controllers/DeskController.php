@@ -11,8 +11,8 @@ class DeskController extends Controller
     public function index()
     {
         try {
-            $apiKey = config('E9Y2LxT4g1hQZ7aD8nR3mWx5P0qK6pV7'); // or hardcode while testing
-            $base = config('http://localhost:8080/api/v2');  // e.g. http://localhost:8080/api/v2
+            $apiKey = config('E9Y2LxT4g1hQZ7aD8nR3mWx5P0qK6pV7'); 
+            $base = config('http://localhost:8080/api/v2'); 
             $url = "{$base}/{$apiKey}/desks";
 
             // add timeout and proper error handling
