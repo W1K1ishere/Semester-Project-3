@@ -9,7 +9,7 @@ class Department extends Model
 {
     /** @use HasFactory<\Database\Factories\DepartmentFactory> */
     use HasFactory;
-
+    protected $guarded = [];
     public function users()
     {
         return $this->belongsToMany(User::class, 'works_in', 'department_id', 'user_id');

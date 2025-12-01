@@ -40,13 +40,8 @@
                     @auth
                         <div class="pt-1.5">
                             @if(Auth::user()->isAdmin)
-                                <a href="/createUser" class="text-center text-xs text-orange-500 hover:bg-gray-200 rounded-md px-3 py-2">
-                                    Create New User
-                                </a>
-                            @endif
-                            @if(Auth::user()->isAdmin)
-                                <a href="/scheduler" class="text-center text-xs text-orange-500 hover:bg-gray-200 rounded-md px-3 py-2">
-                                    Scheduler
+                                <a href="/admin" class="text-center text-xs text-orange-500 hover:bg-gray-200 rounded-md px-3 py-2">
+                                    Admin menu
                                 </a>
                             @endif
                             <x-nav-link href="/profile/{{ auth()->user() }}">Edit Profile</x-nav-link>

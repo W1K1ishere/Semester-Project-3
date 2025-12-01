@@ -7,14 +7,6 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
-    public function view()
-    {
-        $departments = Department::simplePaginate(5);
-        return view('auth.scheduler', [
-            'departments' => $departments,
-        ]);
-    }
-
     public function select(Request $request)
     {
         $request->validate([

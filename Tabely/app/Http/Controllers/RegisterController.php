@@ -17,21 +17,12 @@ use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
-    public function addView() {
-        $departments = Department::all();
-    $tables = Table::where('isAssigned', '=', 0)->get(); // <-- this is a collection of Table models
-    $tables = $tables->groupBy('department_id');
-
-
-    return view('auth.createUser', [
-        'departments' => $departments,
-        'tables' => $tables
-    ]);
-    }
 
     public function sendMail(Request $request) {
         $request->validate([
             'email' => ['required', 'email', 'unique:users'],
+            'table' => 'required',
+            'department' => 'required',
         ]);
 
         $user = User::create([
@@ -40,7 +31,8 @@ class RegisterController extends Controller
 
         $user->departments()->attach($request->department);
 
-        $request->table->update(['user_id'=>$user->id]);
+        $table = Table::find($request->table);
+        $table->update(['user_id' => $user->id, 'isAssigned' => true]);
 
         $token = Password::createToken($user);
 
@@ -86,6 +78,7 @@ class RegisterController extends Controller
         );
 
         Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        request()->session()->regenerate();
 
         return $status == Password::PASSWORD_RESET
             ? redirect('/')
