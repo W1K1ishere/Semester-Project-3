@@ -11,6 +11,7 @@
                 </script>
                 <div class="relative w-full hover:scale-95 transition-transform focus:scale-95">
                     <select id="department" name="department" style="text-align-last: center" class="font-light block py-1 rounded-3xl w-full appearance-none bg-white/80 focus:outline-none focus:ring-orange-500/70 focus:ring-2 focus:bg-gray-200/70 hover:bg-gray-100/70">
+                        <option value="">Select department</option>
                         @foreach($departments as $department)
                             <option value="{{ $department->id }}">{{ $department->dep_name }}</option>
                         @endforeach
