@@ -25,11 +25,11 @@
                             <img src="{{ asset('images/logo.png') }}" alt="logo" class="size-32">
                         </a>
                         <div class="flex flex-col gap-5 w-full px-10">
-                            <x-admin-menu-link href="/admin/departments" :active="request()->is('admin/departments')">Departments</x-admin-menu-link>
+                            <x-admin-menu-link href="/admin/departments" :active="request()->is('admin/departments*')">Departments</x-admin-menu-link>
                             <x-admin-menu-link href="/admin/scheduler" :active="request()->is('admin/scheduler')">Scheduler</x-admin-menu-link>
                             <x-admin-menu-link href="/admin/addUser" :active="request()->is('admin/addUser')">Add User</x-admin-menu-link>
-                            <x-admin-menu-link href="/admin/tables" :active="request()->is('admin/tables')">Tables</x-admin-menu-link>
-                            <x-admin-menu-link href="/admin/users" :active="request()->is('admin/users')">Users</x-admin-menu-link>
+                            <x-admin-menu-link href="/admin/tables" :active="request()->is('admin/tables*')">Tables</x-admin-menu-link>
+                            <x-admin-menu-link href="/admin/users" :active="request()->is('admin/users*')">Users</x-admin-menu-link>
                         </div>
                     </div>
                     {{--content--}}
