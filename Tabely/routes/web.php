@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeskController;
 use App\Http\Controllers\TableController;
@@ -25,7 +26,6 @@ Route::delete('/profile/delete', [ProfileController::class, 'destroy']);
 Route::patch('/profile/update', [ProfileController::class, 'updateUser'])->name('profile.update');
 
 Route::get('/admin', [AdminController::class, 'adminView']);
-Route::get('admin/users', [AdminController::class, 'usersView']);
 
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
@@ -60,6 +60,12 @@ Route::get('/admin/tables/{id}', [AdminController::class, 'selectTablesView']);
 Route::post('/admin/tables/select', [TableController::class, 'select']);
 Route::patch('/admin/tables/update', [TableController::class, 'update']);
 Route::post('/admin/tables/create/create', [TableController::class, 'create']);
+Route::delete('/admin/tables/delete', [TableController::class, 'delete']);
+
+Route::get('admin/users', [AdminController::class, 'usersView']);
+Route::get('/admin/users/{id}', [AdminController::class, 'selectedUserView']);
+Route::post('/admin/users/select', [UserController::class, 'select']);
+Route::delete('/admin/users/delete', [UserController::class, 'delete']);
 
 Route::get('/api/local-desks', [DeskController::class, 'index']);
 Route::get('/proxy/desks', function () {
@@ -67,6 +73,3 @@ Route::get('/proxy/desks', function () {
 
     return Http::get($api)->json();
 });
-
-
-Route::get('/tables/dropdown', [TableController::class, 'showDropdown']);

@@ -13,8 +13,9 @@
                 <div class="relative w-[calc(80%)] hover:scale-95 transition-transform focus:scale-95">
                     <select id="department" name="department" style="text-align-last: center"
                             class="font-light block py-1 rounded-3xl w-full appearance-none bg-white/80 focus:outline-none focus:ring-orange-500/70 focus:ring-2 focus:bg-gray-200/70 hover:bg-gray-100/70">
-                        <option value="">Select department</option>
+                        <option value="{{ $selectedDepartment == null ? '' : $selectedDepartment->id }}">{{ $selectedDepartment == null ? 'Select department' : $selectedDepartment->dep_name }}</option>
                         @foreach($departments as $department)
+                            @continue($selectedDepartment !== null && $department->id == $selectedDepartment->id)
                             <option value="{{ $department->id }}">{{ $department->dep_name }}</option>
                         @endforeach
                     </select>
@@ -28,8 +29,7 @@
             <label class="text-2xl">Tables:</label>
             @if(!empty($tables))
                 @foreach($tables as $table)
-                    <x-table-index :table="$table"
-                                   :active="session('selected_table_edit') == $table->id"></x-table-index>
+                    <x-table-index :table="$table" :active="session('selected_table_edit') == $table->id"></x-table-index>
                 @endforeach
                 <div class="w-full px-10">
                     {{ $tables->links() }}

@@ -42,6 +42,7 @@ class AdminController extends Controller
 
     public function tablesView()
     {
+        $selectedDepartment = null;
         $departments = Department::get();
         $tables = null;
         $groupedUsers = null;
@@ -49,12 +50,14 @@ class AdminController extends Controller
         return view('admin.admin-tables', [
             'departments' => $departments,
             'tables' => $tables,
-            'groupedUsers' => $groupedUsers
+            'groupedUsers' => $groupedUsers,
+            'selectedDepartment' => $selectedDepartment
         ]);
     }
 
     public function selectTablesView($id)
     {
+        $selectedDepartment = Department::find($id);
         $departments = Department::get();
         $tables = Table::where('department_id', $id)->simplePaginate(3);
         $groupedUsers = Department::with('users')->get()->mapWithKeys(function ($department) {
@@ -66,7 +69,8 @@ class AdminController extends Controller
         return view('admin.admin-tables', [
             'departments' => $departments,
             'tables' => $tables,
-            'groupedUsers' => $groupedUsers
+            'groupedUsers' => $groupedUsers,
+            'selectedDepartment' => $selectedDepartment
         ]);
     }
 
@@ -92,7 +96,27 @@ class AdminController extends Controller
 
     public function usersView()
     {
-        return view('admin.admin-users');
+        $departments = Department::get();
+        $users = null;
+        $selectedDepartment = null;
+        return view('admin.admin-users', [
+            'departments' => $departments,
+            'user' => $users,
+            'selectedDepartment' => $selectedDepartment
+        ]);
+    }
+
+    public function selectedUserView($id)
+    {
+        $selectedDepartment = Department::find($id);
+        $departments = Department::get();
+        $users = Department::findOrFail($id)->users()->paginate(3);
+        return view('admin.admin-users',
+            [
+                'departments' => $departments,
+                'users' => $users,
+                'selectedDepartment' => $selectedDepartment
+            ]);
     }
 
     public function addUserView()
@@ -107,4 +131,5 @@ class AdminController extends Controller
             'tables' => $tables
         ]);
     }
+
 }

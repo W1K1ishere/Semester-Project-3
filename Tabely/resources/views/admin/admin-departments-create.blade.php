@@ -13,7 +13,8 @@
     <div class="flex flex-col bg-orange-50/90 w-[calc(33%-10px)] rounded-2xl gap-10 items-center">
         <form class="w-full h-full" method="POST" action="/admin/departments/create/create">
             @csrf
-            <div class="w-full flex flex-col px-10 gap-8 py-20 items-center">
+            <div class="w-full flex flex-col px-10 gap-8 py-14 items-center">
+                <label class="text-2xl">Create department:</label>
                 <input id="dep_name" name="dep_name" type="text" required placeholder="Department name" class="text-center py-2 rounded-3xl bg-white/80 focus:outline-none focus:ring-orange-500/70 focus:ring-2 focus:bg-gray-200/70 hover:bg-gray-100/70 hover:scale-95 transition-transform focus:scale-95">
                 <x-form-error name="dep_name"></x-form-error>
                 <div class="flex flex-col items-center">

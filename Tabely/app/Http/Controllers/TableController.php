@@ -29,10 +29,15 @@ class TableController extends Controller
         $table = Table::find(session('selected_table_edit'));
 
         $table->department_id = $request->department_id;
+        $table->desk_mac = $request->desk_mac;
 
         if ($request->user_id)
         {
             $table->user_id = $request->user_id;
+        }
+        else
+        {
+            $table->user_id = null;
         }
         $table->save();
         return redirect('/admin/tables');
@@ -50,6 +55,17 @@ class TableController extends Controller
             'desk_mac' => $request->desk_mac,
             'current_height' => 100
         ]);
+
+        return redirect('/admin/tables');
+    }
+
+    public function delete(Request $request)
+    {
+        $request->validate([
+            'table_id' => 'required',
+        ]);
+
+        Table::find($request->table_id)->delete();
 
         return redirect('/admin/tables');
     }
