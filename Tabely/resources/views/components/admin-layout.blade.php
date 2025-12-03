@@ -20,7 +20,7 @@
                 <div class="flex flex-row w-[calc(100%-70px)] h-[calc(100%-70px)] gap-5">
                     {{--side bar--}}
                     <div class="flex flex-col bg-orange-50/90 w-[calc(33%-10px)] rounded-2xl gap-10 items-center">
-                        <a href="/" class="mt-10 flex flex-col items-center">
+                        <a href="/" class="mt-10 flex flex-col items-center hover:scale-95 active:scale-90 transition-transform">
                             <label class="text-6xl font-bold "> Tabely </label>
                             <img src="{{ asset('images/logo.png') }}" alt="logo" class="size-32">
                         </a>

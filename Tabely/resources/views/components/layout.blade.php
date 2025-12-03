@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     <link rel="icon" type="image/png" href="{{ asset('icons/icon.png') }}" class="rounded-lg">
+    <link rel="stylesheet" href="{{ asset('css/navLink.css') }}">
 
 </head>
 <body class="h-full w-full">
@@ -25,26 +26,45 @@
                         </a>
                     </div>
                     {{--links--}}
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-4">
                         @auth
-                            <x-nav-link>Home</x-nav-link>
-                            <x-nav-link>Charts</x-nav-link>
+                            <a href="" class="link">
+                                <span class="splitUp {{ request()->is('home') ? 'text-orange-600' : '' }}">Home</span>
+                                <span class="splitDown">Home</span>
+                            </a>
+                            <a href="" class="link">
+                                <span class="splitUp {{ request()->is('charts') ? 'text-orange-600' : '' }}">Charts</span>
+                                <span class="splitDown">Charts</span>
+                            </a>
                         @endauth
-                        <x-nav-link href="/features" :active="request()->is('features')" >Features</x-nav-link>
-                        <x-nav-link href="/companies" :active="request()->is('companies')">For Companies</x-nav-link>
-                        <x-nav-link href="/support" :active="request()->is('support')">Support</x-nav-link>
+                        <a href="/features" class="link">
+                            <span class="splitUp {{ request()->is('features') ? 'text-orange-600' : '' }}">Features</span>
+                            <span class="splitDown">Features</span>
+                        </a>
+                        <a href="/companies" class="link">
+                            <span class="splitUp {{ request()->is('companies') ? 'text-orange-600' : '' }}">Companies</span>
+                            <span class="splitDown">Companies</span>
+                        </a>
+                        <a href="/support" class="link">
+                            <span class="splitUp {{ request()->is('support') ? 'text-orange-600' : '' }}">Support</span>
+                            <span class="splitDown">Support</span>
+                        </a>
                     </div>
                 </div>
                 {{--login button--}}
-                <div class="flex gap-0.5 pb-0.5">
+                <div class="flex gap-4 pb-0.5">
                     @auth
-                        <div class="pt-1.5">
+                        <div class="pt-1.5 flex flex-row gap-4">
                             @if(Auth::user()->isAdmin)
-                                <a href="/admin" class="text-center text-xs text-orange-500 hover:bg-gray-200 rounded-md px-3 py-2">
-                                    Admin menu
+                                <a id="adminLink" name="adminLink" href="/admin" class="link">
+                                    <span class="splitUp">Admin</span>
+                                    <span class="splitDown">Admin</span>
                                 </a>
                             @endif
-                            <x-nav-link href="/profile/{{ auth()->user() }}">Edit Profile</x-nav-link>
+                            <a href="/profile/{{ auth()->user() }}" class="link">
+                                <span class="splitUp">Profile</span>
+                                <span class="splitDown">Profile</span>
+                            </a>
                         </div>
                         <div>
                             <form method="POST" action="/logout">
@@ -57,6 +77,7 @@
                 </div>
             </div>
         </nav>
+        <script src="{{ asset('js/spanText.js') }}"></script>
         {{--body--}}
         <div class="w-full">
             {{ $slot }}
