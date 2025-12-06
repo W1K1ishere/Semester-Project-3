@@ -16,9 +16,9 @@ class CheckTimeAndRunBreak extends Command
 
     public function handle()
 {
-    $now = Carbon::now()->format('H:i');
+    $now = Carbon::now('Europe/Copenhagen')->format('H:i');
 
-    $breakTimes = DB::table('breaks')->get();
+    $breakTimes = DB::table('departments')->get();
 
     Log::info("⏱ Scheduler running, current time: {$now}");
 
@@ -28,13 +28,14 @@ class CheckTimeAndRunBreak extends Command
         /*
         if (true) {
               SendWifi2BleRequestBreak::dispatch();
-              $willthiswork = date('H:i', $break->startTime);
-              
-            Log::info(" Time matched ({$now}) ({$willthiswork})— job dispatched");
+              $willthiswork = $break->break_time_start;
+              $prettyplease = date("H:i", strtotime($willthiswork));
+
+            Log::info(" Time matched ({$now}) ({$prettyplease}) — job dispatched");
         }
         */
-
-        if (date('H:i', $break->startTime) === $now) {
+        
+        if (date('H:i', strtotime($break->break_time_start)) === $now) {
               SendWifi2BleRequestBreak::dispatch();
 
             Log::info(" Time matched ({$now}) — job dispatched");
