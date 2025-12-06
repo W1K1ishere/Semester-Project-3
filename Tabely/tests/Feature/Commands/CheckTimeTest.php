@@ -11,7 +11,7 @@ use App\Jobs\SendWifi2BleRequestJob;
 class CheckTimeAndRunCommandTest extends TestCase
 {
 /** @test */
-    public function test_it_dispatches_the_job_when_time_matches()
+    public function it_dispatches_the_job_when_time_matches()
     {
         // faking the dispatching of jobs, events, and commands. 
         // This is useful when you want to ensure that a job or command is dispatched without actually executing its logic
@@ -27,7 +27,7 @@ class CheckTimeAndRunCommandTest extends TestCase
     }
 
     /** @test */
-    public function test_it_does_not_dispatch_the_job_when_time_does_not_match()
+    public function it_does_not_dispatch_the_job_when_time_does_not_match()
     {
         Bus::fake();
 
