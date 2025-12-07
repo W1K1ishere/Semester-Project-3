@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Jobs\SendWifi2BleRequestBreak;
+use App\Jobs\SendWifi2BleRequestJob;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -36,9 +36,9 @@ class CheckTimeAndRunBreak extends Command
         */
         
         if (date('H:i', strtotime($break->break_time_start)) === $now) {
-              SendWifi2BleRequestBreak::dispatch();
+              SendWifi2BleRequestJob::dispatch();
 
-            Log::info(" Time matched ({$now}) — job dispatched");
+            Log::info(" Time matched ({$now}) — break dispatched");
         }
         
     }

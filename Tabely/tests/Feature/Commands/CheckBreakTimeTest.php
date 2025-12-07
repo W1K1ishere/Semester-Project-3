@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use App\Jobs\SendWifi2BleRequestBreak;
+use App\Jobs\SendWifi2BleRequestJob;
 
 class CheckBreakAndRunCommandTest extends TestCase
 {
@@ -25,7 +25,7 @@ class CheckBreakAndRunCommandTest extends TestCase
         Artisan::call('wifi2ble:checkbreak');
 
         // job was dispatched
-        Bus::assertDispatched(SendWifi2BleRequestBreak::class);
+        Bus::assertDispatched(SendWifi2BleRequestJob::class);
     }
 
     /** @test */
@@ -39,6 +39,6 @@ class CheckBreakAndRunCommandTest extends TestCase
         Artisan::call('wifi2ble:checkbreak');
 
         // job was not dispatched
-        Bus::assertNotDispatched(SendWifi2BleRequestBreak::class);
+        Bus::assertNotDispatched(SendWifi2BleRequestJob::class);
     }
 }
