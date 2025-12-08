@@ -1,6 +1,6 @@
 import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
-import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
+import { FBXLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/FBXLoader.js";
 
 const scene = new THREE.Scene();
 
@@ -16,12 +16,6 @@ renderer.setSize(width, height);
 renderer.setPixelRatio(window.devicePixelRatio);
 container.appendChild(renderer.domElement);
 
-const topLight = new THREE.DirectionalLight(0xffffff, 1);
-topLight.position.set(5, 5, 5);
-scene.add(topLight);
-
-scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
@@ -32,28 +26,50 @@ let legMidL, legMidR;
 let currentHeight = 0;
 let targetHeight = 0;
 
+
 let DESK_OFFSET = 2;
 let BEAM_OFFSET = 0.8;
 let TOP_OFFSET = 0;
 let MID_OFFSET = 0.2;
 
-new GLTFLoader().load("/models/table.glb", glb => {
-    const root = glb.scene;
-    root.scale.set(1, 1, 1);
+new FBXLoader().load("/models/table.fbx", fbx => {
+    const root = fbx;
+    root.scale.set(0.01, 0.01, 0.01);
     scene.add(root);
 
+    // Import lights from FBX
     root.traverse(child => {
-        if (child.type !== "Mesh") return;
+        if (child.isLight) {
+            scene.add(child.clone());
+        }
+    });
 
-        if (child.name === "desktop") desktop = child;
-        if (child.name === "beam_1") frame = child;
+    // Get meshes from FBX
+    root.traverse(child => {
+        if (!child.isMesh) {
+            return;
+        }
 
-        if (child.name === "leg_topL") legTopL = child;
-        if (child.name === "leg_topR_1") legTopR = child;
+        if (child.name === "desktop") {
+            desktop = child;
+        }
+        if (child.name === "beam") {
+            frame = child;
+        }
 
-        if (child.name === "leg_middleL") legMidL = child;
-        if (child.name === "leg_middleR") legMidR = child;
+        if (child.name === "leg_topL") {
+            legTopL = child;
+        }
+        if (child.name === "leg_topR") {
+            legTopR = child;
+        }
 
+        if (child.name === "leg_middleL") {
+            legMidL = child;
+        }
+        if (child.name === "leg_middleR") {
+            legMidR = child;
+        }
     });
 
     desktop.position.y += DESK_OFFSET;
@@ -75,14 +91,26 @@ function applyHeightInstant(h) {
     const extTop = h;
     const extMid = h * 0.5;
 
-    if (desktop) desktop.position.y = DESK_OFFSET + h;
-    if (frame) frame.position.y = BEAM_OFFSET + h;
+    if (desktop) {
+        desktop.position.y = DESK_OFFSET + h;
+    }
+    if (frame) {
+        frame.position.y = BEAM_OFFSET + h;
+    }
 
-    if (legTopL) legTopL.position.y = TOP_OFFSET + extTop;
-    if (legTopR) legTopR.position.y = TOP_OFFSET + extTop;
+    if (legTopL) {
+        legTopL.position.y = TOP_OFFSET + extTop;
+    }
+    if (legTopR) {
+        legTopR.position.y = TOP_OFFSET + extTop;
+    }
 
-    if (legMidL) legMidL.position.y = MID_OFFSET + extMid;
-    if (legMidR) legMidR.position.y = MID_OFFSET + extMid;
+    if (legMidL) {
+        legMidL.position.y = MID_OFFSET + extMid;
+    }
+    if (legMidR) {
+        legMidR.position.y = MID_OFFSET + extMid;
+    }
 }
 
 function setTableHeight(value) {
@@ -91,7 +119,6 @@ function setTableHeight(value) {
 
 document.getElementById("increase").addEventListener("click", () => {
     const input = document.getElementById("height");
-    input.value = Number(input.value);
     setTableHeight(Number(input.value));
 });
 
@@ -101,7 +128,6 @@ document.getElementById("height").addEventListener("input", e => {
 
 document.getElementById("decrease").addEventListener("click", () => {
     const input = document.getElementById("height");
-    input.value = Number(input.value);
     setTableHeight(Number(input.value));
 });
 
@@ -111,7 +137,6 @@ window.addEventListener("resize", () => {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
-    console.log(desktop.position.y)
 });
 
 function animate() {
