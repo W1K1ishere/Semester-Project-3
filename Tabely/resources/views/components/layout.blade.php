@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
     <link rel="icon" type="image/png" href="{{ asset('icons/icon.png') }}" class="rounded-lg">
     <link rel="stylesheet" href="{{ asset('css/navLink.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/model3D.css') }}">
 
 </head>
 <body class="h-full w-full">
@@ -19,7 +20,7 @@
                 {{--left side--}}
                 <div class="flex items-center gap-4">
                     {{--Logo--}}
-                    <div class="flex shrink-0 items-center">
+                    <div class="flex shrink-0 items-center hover:scale-95 transition-transform active:scale-90">
                         <img src="{{ asset('images/logo.png') }}" alt="Company Logo" class="size-16">
                         <a href="/" class="font-bold text-2xl">
                             Tabely
@@ -28,7 +29,7 @@
                     {{--links--}}
                     <div class="flex items-center gap-4">
                         @auth
-                            <a href="" class="link">
+                            <a href="/home" class="link">
                                 <span class="splitUp {{ request()->is('home') ? 'text-orange-600' : '' }}">Home</span>
                                 <span class="splitDown">Home</span>
                             </a>
@@ -69,7 +70,7 @@
                         <div>
                             <form method="POST" action="/logout">
                                 @csrf
-                                <button class="bg-black text-white px-4 py-2 w-24 text-center rounded-xl" type="submit">Log Out</button>
+                                <button class="bg-black text-white px-4 py-2 w-24 text-center rounded-xl hover:bg-gray-900 hover:scale-95 transition-transform active:scale-90 active:bg-gray-700" type="submit">Log Out</button>
                             </form>
                         </div>
 
@@ -87,7 +88,7 @@
             <div class="flex flex-row justify-between">
                 {{--left side - Logo, p, links to social media--}}
                 <div class="flex flex-col gap-3 items-start mt-2">
-                    <h2 class="font-bold text-2xl">Tabely</h2>
+                    <h2 class="font-bold text-2xl">Tabely &reg;</h2>
                     <p class="text-xs text-gray-400">Software for easy control of adjustable tables in your company</p>
                     {{--social media links--}}
                     <div class="flex gap-2 mt-4">
