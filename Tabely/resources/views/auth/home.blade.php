@@ -60,3 +60,4 @@
  </div>
 </x-layout>
 <script type="module" src="{{ asset('js/model3D.js') }}?v={{ filemtime(public_path('js/model3D.js')) }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
