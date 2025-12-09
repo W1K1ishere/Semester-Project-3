@@ -79,7 +79,7 @@ foreach ($departments as $department) {
         }
 
         // sendjob with standing_height
-        Log::info("Dispatching job for table {$table->id} with standing_height {$profile->sitting_height}");
+        Log::info("Dispatching job for table {$table->id} with sitting_height {$profile->sitting_height}");
         SendWifi2BleRequestJob::dispatch($table->id, $profile->sitting_height*10);
     }
 }
