@@ -8,42 +8,44 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
-class CheckTimeAndRunCommand extends Command
+class CheckTimeAndRunBreak extends Command
 {
-    protected $signature = 'wifi2ble:checktime';
-    protected $description = 'Check the time against department cleaning times and update table heights based on user profiles';
+    protected $signature = 'wifi2ble:checkbreak';
+    protected $description = 'Check the time against department break times and update table heights based on user profiles';
+
 
     public function handle()
-    {
-  $now = Carbon::now('Europe/Copenhagen')->format('H:i');
-Log::info("⏱ Scheduler running at {$now}");
+{
+    $now = Carbon::now('Europe/Copenhagen')->format('H:i');
 
-// get departments scheduled at this time
-$departments = DB::table('departments')
-    ->where('cleaning_time_start', $now)
-    ->get();
+    Log::info("⏱ Scheduler running, current time: {$now}");
 
-Log::info("Departments found:", $departments->toArray());
-
-if ($departments->isEmpty()) {
-    Log::info("No departments scheduled to start cleaning at {$now}");
-    return;
-}
-
-foreach ($departments as $department) {
-    Log::info("Processing department ID: {$department->id}");
-
-    // getting tables for the department
-    $tables = DB::table('tables')
-        ->where('department_id', $department->id)
+    // get departments scheduled at this time
+    $departments = DB::table('departments')
+        ->where('break_time_start', $now)
         ->get();
 
-    Log::info("Tables found for department {$department->id}:", $tables->toArray());
+    Log::info("Departments found:", $departments->toArray());
 
-    if ($tables->isEmpty()) {
-        Log::info("No tables in this department.");
-        continue;
+    if ($departments->isEmpty()) {
+        Log::info("No departments scheduled to start break at {$now}");
+        return;
     }
+
+    foreach ($departments as $department) {
+        Log::info("Processing department ID: {$department->id}");
+
+        // getting tables for the department
+        $tables = DB::table('tables')
+            ->where('department_id', $department->id)
+            ->get();
+
+        Log::info("Tables found for department {$department->id}:", $tables->toArray());
+
+        if ($tables->isEmpty()) {
+            Log::info("No tables in this department.");
+            continue;
+        }
 
     foreach ($tables as $table) {
         Log::info("Processing table ID: {$table->id}");
@@ -77,12 +79,14 @@ foreach ($departments as $department) {
             Log::info("No matching profile found for user {$user->id} and profile ID {$user->picked_profile}.");
             continue;
         }
-
+        
         // sendjob with standing_height
         Log::info("Dispatching job for table {$table->id} with standing_height {$profile->standing_height}");
         SendWifi2BleRequestJob::dispatch($table->id, $profile->standing_height*10);
     }
+        
+    }
+    
 }
 
-    }
 }

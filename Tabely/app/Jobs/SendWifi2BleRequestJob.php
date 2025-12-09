@@ -28,7 +28,7 @@ class SendWifi2BleRequestJob
         ]);
 
         $apiKey = "E9Y2LxT4g1hQZ7aD8nR3mWx5P0qK6pV7";
-        $baseUrl = "http://127.0.0.1:8080/api/v2/{$apiKey}";
+        $baseUrl = "http://127.0.0.1:8080/api/v2/E9Y2LxT4g1hQZ7aD8nR3mWx5P0qK6pV7";
 
   
         $desk = \DB::table('tables')->where('id', $this->tableId)->first();
@@ -50,7 +50,7 @@ class SendWifi2BleRequestJob
             'position_mm' => $this->heightMM
         ]);
 
-        $response = Http::timeout(30)->put($url, [
+        $response = Http::timeout(60)->put($url, [
             "position_mm" => $this->heightMM
         ]);
 
