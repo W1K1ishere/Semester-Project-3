@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
@@ -17,6 +18,12 @@ Route::view('/', 'guest.welcome');
 Route::view('/features', 'guest.features');
 Route::view('/companies', 'guest.companies');
 Route::view('/support', 'guest.support');
+
+Route::get('/home', [HomeController::class, 'view']);
+Route::patch('/home/update', [HomeController::class, 'update']);
+Route::patch('/home/standingHeight', [HomeController::class, 'setStandingHeight']);
+Route::patch('/home/sittingHeight', [HomeController::class, 'setSittingHeight']);
+Route::patch('/home/autoAdjust', [HomeController::class, 'setAdjustingAuto']);
 
 Route::get('/profile/{user}', [ProfileController::class, 'create']);
 Route::post('/profile/select', [ProfileController::class, 'select'])->name('profile.select');
