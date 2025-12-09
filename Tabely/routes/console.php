@@ -11,6 +11,8 @@ Artisan::command('inspire', function () {
 use Illuminate\Support\Facades\Schedule;
 
 
-Schedule::command('desks:sync')->everySecond();
-Schedule::command('wifi2ble:checktime')->everyMinute();
-Schedule::command('wifi2ble:checktimecleaningend')->everyMinute();
+Schedule::command('desks:sync')->everyFiveSeconds()->withoutOverlapping();
+Schedule::command('wifi2ble:checktime')->everyMinute()->withoutOverlapping();
+Schedule::command('wifi2ble:checktimecleaningend')->everyMinute()->withoutOverlapping();
+Schedule::command('wifi2ble:checkbreak')->everyMinute()->withoutOverlapping();
+Schedule::command('wifi2ble:checktimebreakend')->everyMinute()->withoutOverlapping();

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Table;
+use Illuminate\Support\Facades\Log;
 
 class SyncDesks extends Command
 {
@@ -33,7 +34,8 @@ class SyncDesks extends Command
     ]
 );
         }
-
+        Log::info("syncing desks");
+       
         $this->info('Desks synced');
     }
 }
