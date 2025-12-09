@@ -21,35 +21,54 @@
              {{--selecting sitting and standing height or automatically--}}
              <div class="flex flex-row gap-5">
                  {{--sitting height--}}
-                 <button id="standingHeight" name="standingHeight" class="border-2 py-1 px-2 rounded-3xl border-black bg-orange-100 transition-transform hover:scale-95 hover:border-orange-500 active:bg-orange-200 active:scale-90 active:border-b-orange-600">
-                    Standing height
-                 </button>
+                 <form method="POST" action="/home/standingHeight">
+                     @csrf
+                     @method('PATCH')
+                     <button id="standingHeight" name="standingHeight" class="border-2 py-1 px-2 rounded-3xl border-black bg-orange-100 transition-transform hover:scale-95 hover:border-orange-500 active:bg-orange-200 active:scale-90 active:border-b-orange-600">
+                        Standing height
+                     </button>
+                 </form>
                  {{--standing height--}}
-                 <button id="sittingHeight" name="sittingHeight" class="border-2 py-1 px-2 rounded-3xl border-black bg-orange-100 transition-transform hover:scale-95 hover:border-orange-500 active:bg-orange-200 active:scale-90 active:border-b-orange-600">
-                    Sitting Height
-                 </button>
+                 <form method="POST" action="/home/sittingHeight">
+                     @csrf
+                     @method('PATCH')
+                     <button id="sittingHeight" name="sittingHeight" class="border-2 py-1 px-2 rounded-3xl border-black bg-orange-100 transition-transform hover:scale-95 hover:border-orange-500 active:bg-orange-200 active:scale-90 active:border-b-orange-600">
+                        Sitting Height
+                     </button>
+                 </form>
                  {{--adjust automaticaly--}}
-                 <button id="adjustAuto" name="adjustAuto" class="border-2 py-1 px-2 rounded-3xl border-black bg-orange-100 transition-transform hover:scale-95 hover:border-orange-500 active:bg-orange-200 active:scale-90 active:border-b-orange-600">
-                    Adjust automatically
-                 </button>
+                 <form method="POST" action="/home/autoAdjust">
+                     @csrf
+                     @method('PATCH')
+                     <button id="adjustAuto" name="adjustAuto" class="border-2 py-1 px-2 rounded-3xl border-black bg-orange-100 transition-transform hover:scale-95 hover:border-orange-500 active:bg-orange-200 active:scale-90 active:border-b-orange-600">
+                        Adjust automatically
+                     </button>
+                 </form>
              </div>
 
              {{--adjust manually--}}
-             <div class="flex flex-col gap-5 items-center">
-                 <label class="text-2xl">Current height:</label>
-                 <div class="flex flex-row gap-5">
-                     {{--minus button--}}
-                     <button id="decrease" class="px-4 py-2 bg-orange-100 border-2 rounded-full border-gray-400 transition-transform hover:border-orange-500 hover:scale-95 active:scale-90 active:bg-orange-200 active:border-orange-600" type="button" onclick="this.nextElementSibling.stepDown()">
-                        -
-                     </button>
-                     {{--height input--}}
-                     <input id="height" name="height" type="number" value="{{ $currentHeight }}" style="text-align-last: center" class="[&::-webkit-inner-spin-button]:appearance-none &::-webkit-outer-spin-button]:appearance-none] appearance-none bg-white py-2 px-4 border-2 border-gray-400 rounded-3xl">
-                     {{--plus Button--}}
-                     <button id="increase" class="px-4 py-2 bg-orange-100 border-2 rounded-full border-gray-400 transition-transform hover:border-orange-500 hover:scale-95 active:scale-90 active:bg-orange-200 active:border-orange-600" type="button" onclick="this.previousElementSibling.stepUp()">
-                        +
+             <form method="POST" action="/home/update">
+                 @csrf
+                 @method('PATCH')
+                 <div class="flex flex-col gap-5 items-center">
+                     <label class="text-2xl">Current height:</label>
+                     <div class="flex flex-row gap-5">
+                         {{--minus button--}}
+                         <button id="decrease" class="px-4 py-2 bg-orange-100 border-2 rounded-full border-gray-400 transition-transform hover:border-orange-500 hover:scale-95 active:scale-90 active:bg-orange-200 active:border-orange-600" type="button" onclick="this.nextElementSibling.stepDown()">
+                            -
+                         </button>
+                         {{--height input--}}
+                         <input id="height" name="height" type="number" value="{{ $currentHeight }}" style="text-align-last: center" class="[&::-webkit-inner-spin-button]:appearance-none &::-webkit-outer-spin-button]:appearance-none] appearance-none bg-white py-2 px-4 border-2 border-gray-400 rounded-3xl">
+                         {{--plus Button--}}
+                         <button id="increase" class="px-4 py-2 bg-orange-100 border-2 rounded-full border-gray-400 transition-transform hover:border-orange-500 hover:scale-95 active:scale-90 active:bg-orange-200 active:border-orange-600" type="button" onclick="this.previousElementSibling.stepUp()">
+                            +
+                         </button>
+                     </div>
+                     <button type="submit" class="bg-orange-400/70 py-2 px-4 rounded-3xl border-2 border-black transition-transform hover:bg-orange-500/70 hover:border-orange-500 hover:scale-95 active:bg-orange-600/70 active:border-orange-600 active:scale-90">
+                         Apply change
                      </button>
                  </div>
-             </div>
+             </form>
          </div>
      </div>
      <div class="bg-gray-200 w-1 h-full"></div>

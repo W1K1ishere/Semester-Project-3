@@ -20,6 +20,10 @@ Route::view('/companies', 'guest.companies');
 Route::view('/support', 'guest.support');
 
 Route::get('/home', [HomeController::class, 'view']);
+Route::patch('/home/update', [HomeController::class, 'update']);
+Route::patch('/home/standingHeight', [HomeController::class, 'setStandingHeight']);
+Route::patch('/home/sittingHeight', [HomeController::class, 'setSittingHeight']);
+Route::patch('/home/autoAdjust', [HomeController::class, 'setAdjustingAuto']);
 
 Route::get('/profile/{user}', [ProfileController::class, 'create']);
 Route::post('/profile/select', [ProfileController::class, 'select'])->name('profile.select');
