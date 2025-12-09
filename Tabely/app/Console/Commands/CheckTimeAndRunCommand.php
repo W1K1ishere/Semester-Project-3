@@ -15,7 +15,7 @@ class CheckTimeAndRunCommand extends Command
 
     public function handle()
     {
-       $now = Carbon::now()->format('H:i');
+       $now = Carbon::now('Europe/Copenhagen')->format('H:i');
 Log::info("⏱ Scheduler running at {$now}");
 
 // get departments scheduled at this time
