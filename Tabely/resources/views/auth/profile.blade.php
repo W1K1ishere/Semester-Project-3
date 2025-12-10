@@ -97,31 +97,50 @@
                 </div>
 
                 {{-- Edit profile --}}
-                <form method="POST" action="{{ route('profile.save') }}">
-                    @csrf
-                    @method('PATCH')
-                    <div class="flex flex-col bg-orange-50/90 rounded-2xl py-5 px-12 w-[700px] h-[430px] gap-6 ">
-                        <!-- Bottom right content -->
-                        <p class="text-4xl font-semibold">{{ $activeProfile->name }} :</p>
-                        {{--standing height input--}}
-                        <x-profile-edit-input id="standing_height" name="standing_height" text="Standing height: "
-                                              :value="$activeProfile->standing_height"></x-profile-edit-input>
-                        {{--sitting height input--}}
-                        <x-profile-edit-input id="sitting_height" name="sitting_height" text="Sitting height: "
-                                              :value="$activeProfile->sitting_height"></x-profile-edit-input>
-                        {{--Session length--}}
-                        <x-profile-edit-input id="session_length" name="session_length" text="Session length: "
-                                              :value="$activeProfile->session_length"></x-profile-edit-input>
-                        <x-form-error name="session_length"></x-form-error>
-                        {{--save, cancle, delete buttons--}}
-                        <div class="flex flex-row gap-5">
-                            <button type="submit" class="bg-orange-500 px-3 py-2 rounded-2xl ">Save</button>
-                            <button type="submit" form="delete-form" class="bg-transparent text-orange-500">Delete
-                            </button>
-                            <a class="bg-transparent text-black mt-2" href="/profile/cancel">Cancel</a>
+                    <!-- Bottom right content -->
+                    <div class="flex flex-row bg-orange-50/90 rounded-2xl py-5 px-12 w-[700px] h-[430px] gap-32 ">
+                        <div class="flex flex-col gap-6 h-full">
+                            <form class="flex flex-col gap-6 h-full" method="POST" action="{{ route('profile.save') }}">
+                                @csrf
+                                @method('PATCH')
+                            <!-- profile name -->
+                            <p class="text-4xl font-semibold">{{ $activeProfile->name }} :</p>
+                            {{--standing height input--}}
+                            <x-profile-edit-input id="standing_height" name="standing_height" text="Standing height: "
+                                                  :value="$activeProfile->standing_height"></x-profile-edit-input>
+                            {{--sitting height input--}}
+                            <x-profile-edit-input id="sitting_height" name="sitting_height" text="Sitting height: "
+                                                  :value="$activeProfile->sitting_height"></x-profile-edit-input>
+                            {{--Session length--}}
+                            <x-profile-edit-input id="session_length" name="session_length" text="Session length: "
+                                                  :value="$activeProfile->session_length"></x-profile-edit-input>
+                            <x-form-error name="session_length"></x-form-error>
+                            {{--save, cancle, delete buttons--}}
+                            <div class="flex flex-row gap-5">
+                                <button type="submit" class="bg-orange-500 px-3 py-2 rounded-2xl ">Save</button>
+                                <button type="submit" form="delete-form" class="bg-transparent text-orange-500">Delete
+                                </button>
+                                <a class="bg-transparent text-black mt-2" href="/profile/cancel">Cancel</a>
+                            </div>
+                            </form>
+                        </div>
+                        <div class="flex flex-col gap-6 h-full items-center">
+                            <form method="POST" action="/profile/create" class="flex flex-col gap-6 h-full items-center">
+                                @csrf
+                            <!--name input-->
+                            <input name="name" id="name" type="text" placeholder="Name" class="pt-3 bg-transparent border-b-black border-b-2 text-center text-black">
+                            {{--standing height input--}}
+                            <x-profile-edit-input id="standing_height" name="standing_height" text="Standing height: " :value="0"></x-profile-edit-input>
+                            {{--sitting height input--}}
+                            <x-profile-edit-input id="sitting_height" name="sitting_height" text="Sitting height: " :value="0"></x-profile-edit-input>
+                            {{--Session length--}}
+                            <x-profile-edit-input id="session_length" name="session_length" text="Session length: " :value="0"></x-profile-edit-input>
+                            <x-form-error name="session_length"></x-form-error>
+                            {{--create button--}}
+                            <button type="submit" class="bg-orange-500 px-3 py-2 rounded-2xl">Create new profile</button>
+                            </form>
                         </div>
                     </div>
-                </form>
                 <form id="delete-form" method="POST" action="/profile/delete" class="hidden">
                     @csrf
                     @method('DELETE')

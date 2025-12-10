@@ -31,6 +31,7 @@ Route::patch('/profile/save', [ProfileController::class, 'saveProfile'])->name('
 Route::get('/profile/cancel', [ProfileController::class, 'cancel'])->middleware('auth');
 Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->middleware('auth');
 Route::patch('/profile/update', [ProfileController::class, 'updateUser'])->name('profile.update')->middleware('auth');
+Route::post('/profile/create', [ProfileController::class, 'createProfile'])->middleware('auth');
 
 Route::get('/admin', [AdminController::class, 'adminView'])->middleware('auth', 'admin');
 

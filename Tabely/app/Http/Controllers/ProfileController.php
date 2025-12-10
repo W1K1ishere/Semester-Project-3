@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\If_;
 
 class ProfileController extends Controller
 {
@@ -75,5 +76,27 @@ class ProfileController extends Controller
         $user->update($request->only(['name', 'email', 'phone', 'height']));
 
         return back();
+    }
+
+    public function createProfile(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'sitting_height' => 'required',
+            'standing_height' => 'required',
+            'session_length' => 'required',
+        ]);
+        If($request->sitting_height >= 65 && $request->sitting_height <= 125 && $request->standing_height <= 125 && $request->standing_height >= 65) {
+            Profile::create([
+                'user_id' => auth()->user()->id,
+                'name' => $request->name,
+                'sitting_height' => $request->sitting_height,
+                'standing_height' => $request->standing_height,
+                'session_length' => $request->session_length,
+            ]);
+            return back();
+        }
+        else{
+            return back()->withErrors(['session_length' => 'Invalid values, max is 125cm and min is 65cm']);
+        }
     }
 }
