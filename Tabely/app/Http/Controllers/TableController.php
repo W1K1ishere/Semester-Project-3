@@ -33,7 +33,10 @@ class TableController extends Controller
 
         if ($request->user_id)
         {
-            $table->user_id = $request->user_id;
+            if (!Table::where('user_id', $request->user_id)->exists())
+            {
+                $table->user_id = $request->user_id;
+            }
         }
         else
         {

@@ -54,13 +54,13 @@
                      <label class="text-2xl">Current height:</label>
                      <div class="flex flex-row gap-5">
                          {{--minus button--}}
-                         <button id="decrease" class="px-4 py-2 bg-orange-100 border-2 rounded-full border-gray-400 transition-transform hover:border-orange-500 hover:scale-95 active:scale-90 active:bg-orange-200 active:border-orange-600" type="button" onclick="this.nextElementSibling.stepDown()">
+                         <button id="decrease" class="px-4 py-2 bg-orange-100 border-2 rounded-full border-gray-400 transition-transform hover:border-orange-500 hover:scale-95 active:scale-90 active:bg-orange-200 active:border-orange-600" type="button">
                             -
                          </button>
                          {{--height input--}}
                          <input id="height" name="height" type="number" value="{{ $currentHeight }}" style="text-align-last: center" class="[&::-webkit-inner-spin-button]:appearance-none &::-webkit-outer-spin-button]:appearance-none] appearance-none bg-white py-2 px-4 border-2 border-gray-400 rounded-3xl">
                          {{--plus Button--}}
-                         <button id="increase" class="px-4 py-2 bg-orange-100 border-2 rounded-full border-gray-400 transition-transform hover:border-orange-500 hover:scale-95 active:scale-90 active:bg-orange-200 active:border-orange-600" type="button" onclick="this.previousElementSibling.stepUp()">
+                         <button id="increase" class="px-4 py-2 bg-orange-100 border-2 rounded-full border-gray-400 transition-transform hover:border-orange-500 hover:scale-95 active:scale-90 active:bg-orange-200 active:border-orange-600" type="button">
                             +
                          </button>
                      </div>

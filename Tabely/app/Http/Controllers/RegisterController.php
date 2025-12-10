@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
-public function addView() 
+public function addView()
 {
     $departments = Department::all();
 
@@ -68,12 +68,25 @@ public function addView()
 
         $user = User::where('email', $request->email)->first();
 
-        $profile = Profile::create([
-            'name' => $request->name,
-            'standing_height' => $request->height - 60,
-            'sitting_height' => $request->height - 100,
-            'user_id' => $user->id,
-        ]);
+        if ($request->height <= 165)
+        {
+            $profile = Profile::create([
+                'name' => $request->name,
+                'standing_height' => $request->height - 60,
+                'sitting_height' => $request->height - 100,
+                'session_length' => 30,
+                'user_id' => $user->id,
+            ]);
+        }
+        else {
+            $profile = Profile::create([
+                'name' => $request->name,
+                'standing_height' => $request->height - 60,
+                'sitting_height' => $request->height - 100,
+                'session_length' => 30,
+                'user_id' => $user->id,
+            ]);
+        }
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),

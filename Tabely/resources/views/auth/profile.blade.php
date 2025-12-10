@@ -112,6 +112,7 @@
                         {{--Session length--}}
                         <x-profile-edit-input id="session_length" name="session_length" text="Session length: "
                                               :value="$activeProfile->session_length"></x-profile-edit-input>
+                        <x-form-error name="session_length"></x-form-error>
                         {{--save, cancle, delete buttons--}}
                         <div class="flex flex-row gap-5">
                             <button type="submit" class="bg-orange-500 px-3 py-2 rounded-2xl ">Save</button>

@@ -26,9 +26,21 @@ class HomeController extends Controller
             'height' => 'required',
         ]);
         $table = Table::where('user_id', Auth::user()->id)->first();
-        $table->update([
-            'current_height' => $request->height,
-        ]);
+        if ($request->height >= 125) {
+            $table->update([
+                'current_height' => 125,
+            ]);
+        }
+        else if ($request->height <= 65) {
+            $table->update([
+                'current_height' => 65,
+            ]);
+        }
+        else {
+            $table->update([
+                'current_height' => $request->height,
+            ]);
+        }
         return back();
     }
 

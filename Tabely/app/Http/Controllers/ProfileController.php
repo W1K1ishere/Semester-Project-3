@@ -30,14 +30,17 @@ class ProfileController extends Controller
             'standing_height' => 'required',
             'session_length' => 'required',
         ]);
-
-        $profile = Profile::find(auth()->user()->picked_profile);
-        $profile->sitting_height = $request->sitting_height;
-        $profile->standing_height = $request->standing_height;
-        $profile->session_length = $request->session_length;
-        $profile->save();
-
-        return back();
+        if ($request->sitting_height >= 65 && $request->standing_height >= 65 && $request->sitting_height <= 125 && $request->standing_height <= 125) {
+            $profile = Profile::find(auth()->user()->picked_profile);
+            $profile->sitting_height = $request->sitting_height;
+            $profile->standing_height = $request->standing_height;
+            $profile->session_length = $request->session_length;
+            $profile->save();
+            return back();
+        }
+        else {
+            return back()->withErrors(['session_length' => 'Invalid values, max is 125cm and min is 65cm']);
+        }
     }
 
     public function cancel(){

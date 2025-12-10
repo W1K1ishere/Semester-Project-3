@@ -114,11 +114,29 @@ function applyHeightInstant(h) {
 }
 
 function setTableHeight(value) {
-    targetHeight = value / 100;
+    const convertedHeight = (((value -65) /60) * 160 - 40) / 100;
+    if (value >= 125)
+    {
+        targetHeight = 120 / 100;
+    }
+    else if (value <= 65 )
+    {
+        targetHeight = -40 / 100;
+    }
+    else {
+        targetHeight = convertedHeight ;
+    }
 }
 
 document.getElementById("increase").addEventListener("click", () => {
     const input = document.getElementById("height");
+    if (input.value >= 125)
+    {
+        input.value = 125;
+    }
+    else {
+        input.value ++;
+    }
     setTableHeight(Number(input.value));
 });
 
@@ -128,6 +146,13 @@ document.getElementById("height").addEventListener("input", e => {
 
 document.getElementById("decrease").addEventListener("click", () => {
     const input = document.getElementById("height");
+    if (input.value <= 65)
+    {
+        input.value = 65;
+    }
+    else {
+        input.value --;
+    }
     setTableHeight(Number(input.value));
 });
 
