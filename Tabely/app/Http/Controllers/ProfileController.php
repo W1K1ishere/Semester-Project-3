@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function create(){
         $user = Auth()->user();
-        $profiles = Profile::where('user_id',$user->id)->latest()->simplePaginate(3);
+        $profiles = Profile::where('user_id',$user->id)->latest()->orderBy('id', 'asc')->simplePaginate(3);
         $activeProfile = Profile::find($user->picked_profile);
         return view('auth.profile', [
             'user' => $user,
@@ -25,12 +25,22 @@ class ProfileController extends Controller
     }
 
     public function saveProfile(Request $request){
-        $profile = Profile::find(auth()->user()->picked_profile);
-        $profile->sitting_height = $request->sitting_height;
-        $profile->standing_height = $request->standing_height;
-        $profile->session_length = $request->session_length;
-        $profile->save();
-        return back();
+        $request->validate([
+            'sitting_height' => 'required',
+            'standing_height' => 'required',
+            'session_length' => 'required',
+        ]);
+        if ($request->sitting_height >= 65 && $request->standing_height >= 65 && $request->sitting_height <= 125 && $request->standing_height <= 125) {
+            $profile = Profile::find(auth()->user()->picked_profile);
+            $profile->sitting_height = $request->sitting_height;
+            $profile->standing_height = $request->standing_height;
+            $profile->session_length = $request->session_length;
+            $profile->save();
+            return back();
+        }
+        else {
+            return back()->withErrors(['session_length' => 'Invalid values, max is 125cm and min is 65cm']);
+        }
     }
 
     public function cancel(){
@@ -38,24 +48,32 @@ class ProfileController extends Controller
     }
 
     public function destroy(){
-        $profile = Profile::find(\Auth::user()->picked_profile);
+        $user = Auth()->user();
+        $profile = Profile::find($user->picked_profile);
         if($profile->name == "default"){
             return back();
         }
         else
         {
             $profile->delete();
+            $newProfile = Profile::where('user_id', $user->id)->first();
+            $user->update(['picked_profile' => $newProfile->id]);
             return back();
         }
     }
 
     public function updateUser(Request $request){
-        $user = Auth()->user();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->height = $request->height;
-        $user->save();
+        $user = auth()->user();
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'height' => 'nullable|numeric'
+        ]);
+        Profile::where('user_id', $user->id)->where('name', 'default')->update(['sitting_height' => $request->height-100, 'standing_height' => $request->height-60]);
+        $user->update($request->only(['name', 'email', 'phone', 'height']));
+
         return back();
     }
 }

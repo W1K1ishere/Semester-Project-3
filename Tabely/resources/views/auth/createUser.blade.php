@@ -6,7 +6,7 @@
                 <x-form-input id="email" name="email" required type="email" :value="old('email')" placeholder="Email"></x-form-input>
                 <x-form-error name="email"></x-form-error>
                 <script>
-                    const tables = @json($tables);
+                    window.tables = @json($tables);
                 </script>
                 <select id="department" name="department">
                     @foreach($departments as $department)
@@ -14,14 +14,24 @@
                     @endforeach
                 </select>
 
-                <select id="table" name="table">
-                    <option value="">Select Table</option>
-                </select>
-                <script src="{{ asset('js/table-dropdown.js') }}"></script>
+                <select id="table" name="table" class="form-control">
+    <option value="">Select Table</option>
+    @foreach($tables as $table)
+        <option value="{{ $table->id }}">
+            {{ $table->desk_mac }}
+        </option>
+    @endforeach
+</select>
+                
             </div>
+
             <div class="flex items-center gap-12">
                 <button class="w-36 h-8 bg-white rounded-lg">Add User</button>
             </div>
         </div>
     </form>
+
+
+
+
 </x-login-layout>

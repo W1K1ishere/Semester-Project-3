@@ -17,19 +17,25 @@ use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
-    public function addView() {
-        $departments = Department::all();
-        $tables = Table::all()->groupBy('department_id');
+public function addView()
+{
+    $departments = Department::all();
 
-        return view('auth.createUser', [
-            'departments' => $departments,
-            'tables' => $tables
-        ]);
-    }
+    // Show only desks that are NOT assigned
+    $tables = Table::where('isAssigned', false)->get();
+
+    return view('auth.createUser', [
+        'departments' => $departments,
+        'tables' => $tables
+    ]);
+}
+
 
     public function sendMail(Request $request) {
         $request->validate([
             'email' => ['required', 'email', 'unique:users'],
+            'table' => 'required',
+            'department' => 'required',
         ]);
 
         $user = User::create([
@@ -62,12 +68,25 @@ class RegisterController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        $profile = Profile::create([
-            'name' => $request->name,
-            'standing_height' => $request->height - 60,
-            'sitting_height' => $request->height - 100,
-            'user_id' => $user->id,
-        ]);
+        if ($request->height <= 165)
+        {
+            $profile = Profile::create([
+                'name' => $request->name,
+                'standing_height' => $request->height - 60,
+                'sitting_height' => $request->height - 100,
+                'session_length' => 30,
+                'user_id' => $user->id,
+            ]);
+        }
+        else {
+            $profile = Profile::create([
+                'name' => $request->name,
+                'standing_height' => $request->height - 60,
+                'sitting_height' => $request->height - 100,
+                'session_length' => 30,
+                'user_id' => $user->id,
+            ]);
+        }
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
@@ -84,6 +103,7 @@ class RegisterController extends Controller
         );
 
         Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        request()->session()->regenerate();
 
         return $status == Password::PASSWORD_RESET
             ? redirect('/')

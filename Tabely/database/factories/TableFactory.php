@@ -18,8 +18,7 @@ class TableFactory extends Factory
     public function definition(): array
     {
         return [
-            'current_height' => $this->faker->numberBetween($min = 10, $max = 100),
-            'department_id' => Department::factory(),
+            'desk_mac' => $this->faker->macAddress(),
         ];
     }
 }
