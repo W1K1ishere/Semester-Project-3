@@ -1,0 +1,74 @@
+
+ REQUIREMENTS
+- PHP 8+  
+- Composer  
+- Laravel  
+- Mosquitto MQTT Broker  
+- PostgreSQL (or your chosen DB)
+
+
+ INSTALLATION STEPS
+
+
+
+1. Install dependencies:
+   composer install
+
+2. Create and edit `.env`:
+   cp .env.example .env
+
+   Update these values:
+   DB_DATABASE=tabely  
+   DB_USERNAME=postgres  
+   DB_PASSWORD=yourpassword  
+
+   MQTT_BROKER_HOST=127.0.0.1  
+   MQTT_BROKER_PORT=1883  
+   MQTT_TOPIC=sensors/dht  
+   MQTT_CLIENT_ID=laravel_subscriber_1
+
+3. Generate app key:
+   php artisan key:generate
+
+4. Run migrations:
+   php artisan migrate
+
+------------------------------------------------------------
+
+RUNNING THE SYSTEM
+
+Start MQTT broker:
+Windows:  net start mosquitto  
+Mac/Linux: mosquitto
+
+Start Laravel subscriber:
+php artisan mqtt:subscribe
+
+You should see:
+"Listening for messages..."
+
+------------------------------------------------------------
+
+TESTING WITHOUT HARDWARE
+
+just use this mqtt comand to test in another cmd while running the server.
+
+mosquitto_pub -h 127.0.0.1 -t sensors/dht -m "{\"temp\":22.5,\"hum\":40}"
+
+Laravel should output:
+MESSAGE RECEIVED on sensors/dht: {"temp":22.5,"hum":40}
+
+------------------------------------------------------------
+
+CHECKING STORED DATA
+
+Run Tinker:
+php artisan tinker
+
+Then:
+App\Models\SensorReading::latest()->first()->toArray();
+
+Example output:
+temperature: "22.50"  
+humidity: "40.00"  
+topic: "sensors/dht"
