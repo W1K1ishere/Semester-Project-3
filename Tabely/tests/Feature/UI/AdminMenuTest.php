@@ -2,6 +2,7 @@
 namespace Tests\Feature\WebSite;
 
 use App\Models\Department;
+use App\Models\Table;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -86,7 +87,7 @@ class AdminMenuTest extends TestCase
             'break_start' => '09:00',
             'break_end' => '09:00',
         ]);
-        $response->assertStatus(200);
+        $response->assertStatus(302);
         $this->assertDatabaseHas('departments', [
             'dep_name' => 'new dep',
         ]);
@@ -97,10 +98,73 @@ class AdminMenuTest extends TestCase
         $user = User::factory()->create([
             'isAdmin' => true
         ]);
-        $department = Department::factory()->create();
+        $department = Department::factory()->create([
+            'dep_name' => 'test'
+        ]);
         $this->actingAs($user);
-        $response = $this->get('admin/scheduler/select', [
+        $response = $this->post('scheduler/select', [
             'dep_id' => $department->id
+        ]);
+        $response->assertStatus(302);
+        $response = $this->post('scheduler/saveBreak', [
+            'break_start' => '09:00',
+            'break_end' => '09:00',
+        ]);
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('departments', [
+            'id' => $department->id,
+            'break_time_start' => '09:00',
+        ]);
+        $response = $this->post('scheduler/saveCleaning', [
+            'cleaning_start' => '09:00',
+            'cleaning_end' => '09:00',
+        ]);
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('departments', [
+            'id' => $department->id,
+            'cleaning_time_start' => '09:00',
+            'cleaning_time_end' => '09:00',
+        ]);
+    }
+
+    public function testAdminMenuAddUser() {
+        $user = User::factory()->create([
+            'isAdmin' => true
+        ]);
+        $department = Department::factory()->create([
+            'dep_name' => 'test'
+        ]);
+        $table = Table::factory()->create([
+            'department_id' => $department->id,
+            'current_height' => 100
+        ]);
+        $this->actingAs($user);
+        $response = $this->post('sendMail', [
+            'email' => 'testAddUser@addUser.test',
+            'table' => $table->id,
+            'department' => $department->id,
+        ]);
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('tables', [
+            'id' => $table->id,
+            'user_id' => User::where('email', 'testAddUser@addUser.test')->first()->id,
+        ]);
+    }
+
+    public function testAdminMenuTables() {
+        $user = User::factory()->create([
+            'isAdmin' => true
+        ]);
+        $department = Department::factory()->create([
+            'dep_name' => 'test'
+        ]);
+        $table = Table::factory()->create([
+            'department_id' => $department->id,
+            'current_height' => 100
+        ]);
+        $this->actingAs($user);
+        $response = $this->post('admin/tables/select', [
+            'table_id' => $table->id,
         ]);
         $response->assertStatus(302);
     }

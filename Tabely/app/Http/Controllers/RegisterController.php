@@ -44,7 +44,9 @@ public function addView()
 
         $user->departments()->attach($request->department);
 
-        $user->tables()->attach($request->table);
+        $table = Table::find($request->table);
+        $table->user_id = $user->id;
+        $table->save();
 
         $token = Password::createToken($user);
 
