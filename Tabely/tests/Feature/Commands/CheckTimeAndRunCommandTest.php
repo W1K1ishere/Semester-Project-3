@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Bus;
 use App\Jobs\AnotherJob;
 use App\Jobs\ShipOrder;
+use Illuminate\Support\Facades\Http;
 
 
 class CheckTimeAndRunCommandTest extends TestCase
@@ -21,13 +22,11 @@ class CheckTimeAndRunCommandTest extends TestCase
     /** @test */
 public function test_it_dispatches_a_job_for_tables_with_valid_users_and_profiles()
 {
-    Bus::fake();
+    Http::fake(['http://127.0.0.1:8080/api/v2/*' => Http::response(['success' => true], 200),]);
     
-    Artisan::call('wifi2ble:checktime');
-    dump(Artisan::output());
-
-    Carbon::setTestNow(Carbon::create(2023, 1, 1, 9, 30, 0));
-    $now = Carbon::now()->format('H:i');
+    Bus::fake();
+    Carbon::setTestNow(Carbon::create(2023, 1, 1, 9, 30, 0, 'Europe/Copenhagen'));
+    $now = Carbon::now('Europe/Copenhagen')->format('H:i');
 
     // dep w current time
     $deptId = DB::table('departments')->insertGetId([
@@ -45,8 +44,8 @@ public function test_it_dispatches_a_job_for_tables_with_valid_users_and_profile
         'picked_profile' => 5,
         'created_at' => now(),
         'updated_at' => now(),
-   
     ]);
+
 
     // matching profile to user
     DB::table('profiles')->insert([
@@ -72,15 +71,14 @@ public function test_it_dispatches_a_job_for_tables_with_valid_users_and_profile
     ]);
 
     Artisan::call('wifi2ble:checktime');
-   Bus::assertDispatched(SendWifi2BleRequestJob::class, function ($job) use ($tableId) {
-    $reflection = new \ReflectionClass($job);
 
-    $tableProp = $reflection->getProperty('tableId');
-    $tableProp->setAccessible(true);
-
-
-    return $tableProp->getValue($job) === $tableId;
-});
+    // assert job
+    Bus::assertDispatched(SendWifi2BleRequestJob::class, function ($job) use ($tableId) {
+        $reflection = new \ReflectionClass($job);
+        $tableProp = $reflection->getProperty('tableId');
+        $tableProp->setAccessible(true);
+        return $tableProp->getValue($job) === $tableId;
+    });
 }
 
 

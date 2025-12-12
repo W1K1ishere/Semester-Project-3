@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Bus;
 use App\Jobs\AnotherJob;
 use App\Jobs\ShipOrder;
+use Illuminate\Support\Facades\Http;
 
 
 class CheckTimeAndRunBreakTest extends TestCase
@@ -21,18 +22,17 @@ class CheckTimeAndRunBreakTest extends TestCase
     /** @test */
 public function test_it_dispatches_a_break_for_tables_with_valid_users_and_profiles()
 {
-    Bus::fake();
+  
+    Http::fake(['http://127.0.0.1:8080/api/v2/*' => Http::response(['success' => true], 200),]);
     
-    Artisan::call('wifi2ble:checkbreak');
-    dump(Artisan::output());
+    Bus::fake();
+    Carbon::setTestNow(Carbon::create(2023, 1, 1, 9, 30, 0, 'Europe/Copenhagen'));
+    $now = Carbon::now('Europe/Copenhagen')->format('H:i');
 
-    Carbon::setTestNow(Carbon::create(2023, 1, 1, 9, 30, 0));
-    $now = Carbon::now()->format('H:i');
-
-    // dep w current time
+     // dep w current time
     $deptId = DB::table('departments')->insertGetId([
         'dep_name' => 'IT',
-        'break_time_start' => $now,
+        'break_time_start' => $now, 
         'created_at' => now(),
         'updated_at' => now(),
     ]);
@@ -45,7 +45,6 @@ public function test_it_dispatches_a_break_for_tables_with_valid_users_and_profi
         'picked_profile' => 5,
         'created_at' => now(),
         'updated_at' => now(),
-   
     ]);
 
     // matching profile to user
@@ -71,18 +70,17 @@ public function test_it_dispatches_a_break_for_tables_with_valid_users_and_profi
         'updated_at'     => now(),
     ]);
 
+
     Artisan::call('wifi2ble:checkbreak');
-   Bus::assertDispatched(SendWifi2BleRequestJob::class, function ($job) use ($tableId) {
-    $reflection = new \ReflectionClass($job);
 
-    $tableProp = $reflection->getProperty('tableId');
-    $tableProp->setAccessible(true);
-
-
-    return $tableProp->getValue($job) === $tableId;
-});
+    // assert job
+    Bus::assertDispatched(SendWifi2BleRequestJob::class, function ($job) use ($tableId) {
+        $reflection = new \ReflectionClass($job);
+        $tableProp = $reflection->getProperty('tableId');
+        $tableProp->setAccessible(true);
+        return $tableProp->getValue($job) === $tableId;
+    });
 }
-
 
     /** @test */
 public function test_it_does_not_dispatch_jobs_if_no_departments_match_the_time()
