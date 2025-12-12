@@ -23,10 +23,10 @@ class DepartmentController extends Controller
     {
         $request->validate([
             'dep_name' => 'required',
-            'cleaning_time_start' => 'required',
-            'cleaning_time_end' => 'required',
-            'break_time_start' => 'required',
-            'break_time_start'
+            'cleaning_start' => 'required',
+            'cleaning_end' => 'required',
+            'break_start' => 'required',
+            'break_end' => 'required',
         ]);
 
         Department::create([

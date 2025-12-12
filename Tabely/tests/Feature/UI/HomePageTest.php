@@ -1,11 +1,11 @@
 <?php
-namespace Tests\Feature;
+namespace Tests\Feature\WebSite;
 
-use App\Models\Table;
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Profile;
+use App\Models\Table;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class HomePageTest extends TestCase {
     use RefreshDatabase;
