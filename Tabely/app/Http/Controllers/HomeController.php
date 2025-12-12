@@ -29,31 +29,29 @@ class HomeController extends Controller
             'height' => 'required',
         ]);
         $table = Table::where('user_id', Auth::user()->id)->first();
-        if ($request->height >= 125) {
-            $table->update([
-                'current_height' => 125,
-            ]);
-            
-        $heightMM = 1250;
-        SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
-        }
+        if ($table) {
+            if ($request->height >= 125) {
+                $table->update([
+                    'current_height' => 125,
+                ]);
 
-        else if ($request->height <= 65) {
-            $table->update([
-                'current_height' => 65,
-            ]);
-            
-        $heightMM = 650;
-        SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
-        }
+                $heightMM = 1250;
+                SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
+            } else if ($request->height <= 65) {
+                $table->update([
+                    'current_height' => 65,
+                ]);
 
-        else {
-            $table->update([
-                'current_height' => $request->height,
-            ]);
-            
-        $heightMM = $request->height * 10;
-        SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
+                $heightMM = 650;
+                SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
+            } else {
+                $table->update([
+                    'current_height' => $request->height,
+                ]);
+
+                $heightMM = $request->height * 10;
+                SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
+            }
         }
         return back();
     }
@@ -61,26 +59,29 @@ class HomeController extends Controller
     public function setStandingHeight() {
         $table = Table::where('user_id', Auth::user()->id)->first();
         $pickedProfile = Profile::where('id', Auth::user()->picked_profile)->first();
-        $table->update([
-            'current_height' => $pickedProfile->standing_height,
-        ]);
-        // here we need to send request to table
+        if ($table) {
+            $table->update([
+                'current_height' => $pickedProfile->standing_height,
+            ]);
+            // here we need to send request to table
 
-        $heightMM = $pickedProfile->standing_height * 10;
-        SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
-
+            $heightMM = $pickedProfile->standing_height * 10;
+            SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
+        }
         return back();
     }
 
     public function setSittingHeight() {
         $table = Table::where('user_id', Auth::user()->id)->first();
         $pickedProfile = Profile::where('id', Auth::user()->picked_profile)->first();
-        $table->update([
-            'current_height' => $pickedProfile->sitting_height,
-        ]);
-        // here we need to send request to table
-        $heightMM = $pickedProfile->sitting_height * 10;
-        SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
+        if ($table) {
+            $table->update([
+                'current_height' => $pickedProfile->sitting_height,
+            ]);
+            // here we need to send request to table
+            $heightMM = $pickedProfile->sitting_height * 10;
+            SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
+        }
         return back();
     }
 
@@ -90,12 +91,14 @@ class HomeController extends Controller
         $currentHeight = Table::where('user_id', Auth::user()->id)->value('current_height');
         $pickedProfile = Profile::where('id', Auth::user()->picked_profile)->first();
         $userHeight = User::where('id', Auth::user()->id)->value('height');
-        $table->update([
-            'current_height' => round($userHeight * 0.55),
-        ]);
+        if ($table) {
+            $table->update([
+                'current_height' => round($userHeight * 0.55),
+            ]);
 
-        $heightMM = round($userHeight * 0.55)*10;
-        SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
+            $heightMM = round($userHeight * 0.55) * 10;
+            SendWifi2BleRequestJob::dispatch($table->id, $heightMM);
+        }
 
         return back();
     }
