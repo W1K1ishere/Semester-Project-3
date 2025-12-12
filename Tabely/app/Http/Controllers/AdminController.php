@@ -110,7 +110,7 @@ class AdminController extends Controller
     {
         $selectedDepartment = Department::find($id);
         $departments = Department::get();
-        $users = Department::findOrFail($id)->users()->paginate(3);
+        $users = Department::findOrFail($id)->users()->simplePaginate(3);
         return view('admin.admin-users',
             [
                 'departments' => $departments,

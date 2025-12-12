@@ -163,8 +163,46 @@ class AdminMenuTest extends TestCase
             'current_height' => 100
         ]);
         $this->actingAs($user);
-        $response = $this->post('admin/tables/select', [
+        $this->post('admin/tables/select', [
             'table_id' => $table->id,
+        ]);
+        $response = $this->patch('admin/tables/update', [
+            'desk_mac' => $table->desk_mac,
+            'department_id' => $department->id,
+            'user_id' => $user->id,
+        ]);
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('tables', [
+            'id' => $table->id,
+            'user_id' => $user->id,
+        ]);
+        $department2 = Department::factory()->create([
+            'dep_name' => 'test2'
+        ]);
+        $response = $this->post('admin/tables/create/create', [
+            'dep_id' => $department2->id,
+            'desk_mac' => 'test_mac'
+        ]);
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('tables', [
+            'department_id' => $department2->id,
+        ]);
+    }
+
+    public function testAdminMenuUsers() {
+        $user = User::factory()->create([
+            'isAdmin' => true
+        ]);
+        $department = Department::factory()->create([
+            'dep_name' => 'test'
+        ]);
+        $user->departments()->attach($department->id);
+        $this->actingAs($user);
+        $response = $this->get('admin/users/' .$department->id);
+        $response->assertStatus(200);
+        $response->assertSee($user->name);
+        $response = $this->post('admin/users/select', [
+            'user_id' => $user->id,
         ]);
         $response->assertStatus(302);
     }
