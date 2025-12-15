@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OfficeData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class ConditionsController extends Controller
 {
     public function view() {
-        return view('auth.condition');
+        $currentCondition = OfficeData::latest()->first();
+        return view('auth.condition',[
+            'currentCondition' => $currentCondition
+        ]);
     }
 
     public function fetchWeather(Request $request) {
