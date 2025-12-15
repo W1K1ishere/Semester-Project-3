@@ -13,15 +13,15 @@
                     <img src="{{ asset('images/clearDay.png') }}" alt="weather icon" class="size-16">
                 </div>
                 <div class="flex flex-row items-center">
-                    <label class="text-4xl text-white">??</label>
+                    <label class="text-4xl text-white">--°C</label>
                     <img src="{{ asset('images/temperature.png') }}" alt="temperature" class="size-16">
                 </div>
                 <div class="flex flex-row items-center">
-                    <label class="text-4xl text-white">??</label>
+                    <label class="text-4xl text-white">--%</label>
                     <img src="{{ asset('images/humidity.png') }}" alt="humidity" class="size-16">
                 </div>
                 <div class="flex flex-row items-center">
-                    <label class="text-4xl text-white">??</label>
+                    <label class="text-4xl text-white">-- m/s</label>
                     <img src="{{ asset('images/wind.png') }}" alt="wind" class="size-16">
                 </div>
             </div>
