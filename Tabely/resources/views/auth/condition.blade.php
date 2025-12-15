@@ -48,7 +48,7 @@
                     @elseif($currentCondition->temperature >= 18.0 && $currentCondition->temperature <= 27 && $currentCondition->humidity >=30 && $currentCondition->humidity <= 70 )
                         <label class="text-4xl text-yellow-500">AVERAGE</label>
                     @else
-                        <label class="text-4xl text-shadow-red-500">BAD</label>
+                        <label class="text-4xl text-red-500">BAD</label>
                     @endif
 
                 </div>
