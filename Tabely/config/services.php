@@ -37,7 +37,11 @@ return [
 
     'simulator' => [
     'base_url' => env('SERVICES_SIMULATOR_BASE_URL'),
-],
+    ],
+
+    'openweather' => [
+        'key' => env('OPENWEATHER_API_KEY'),
+    ],
 
 
 ];

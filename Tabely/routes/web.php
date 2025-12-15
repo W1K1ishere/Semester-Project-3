@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ConditionsController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PasswordResetController;
@@ -74,6 +75,9 @@ Route::get('admin/users', [AdminController::class, 'usersView'])->middleware('au
 Route::get('/admin/users/{id}', [AdminController::class, 'selectedUserView'])->middleware('auth', 'admin');
 Route::post('/admin/users/select', [UserController::class, 'select'])->middleware('auth', 'admin');
 Route::delete('/admin/users/delete', [UserController::class, 'delete'])->middleware('auth', 'admin');
+
+Route::get('/condition', [ConditionsController::class, 'view'])->middleware('auth');
+Route::post('/condition/fetch', [ConditionsController::class, 'fetchWeather'])->middleware('auth');
 
 Route::get('/api/local-desks', [DeskController::class, 'index']);
 Route::get('/proxy/desks', function () {

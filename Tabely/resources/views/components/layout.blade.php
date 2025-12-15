@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
@@ -33,9 +34,9 @@
                                 <span class="splitUp {{ request()->is('home') ? 'text-orange-600' : '' }}">Home</span>
                                 <span class="splitDown">Home</span>
                             </a>
-                            <a href="" class="link">
-                                <span class="splitUp {{ request()->is('charts') ? 'text-orange-600' : '' }}">Charts</span>
-                                <span class="splitDown">Charts</span>
+                            <a href="/condition" class="link">
+                                <span class="splitUp {{ request()->is('condition') ? 'text-orange-600' : '' }}">Charts</span>
+                                <span class="splitDown">Condition</span>
                             </a>
                         @endauth
                         <a href="/features" class="link">
