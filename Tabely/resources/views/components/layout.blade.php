@@ -35,8 +35,8 @@
                                 <span class="splitDown">Home</span>
                             </a>
                             <a href="/condition" class="link">
-                                <span class="splitUp {{ request()->is('condition') ? 'text-orange-600' : '' }}">Charts</span>
-                                <span class="splitDown">Condition</span>
+                                <span class="splitUp {{ request()->is('condition') ? 'text-orange-600' : '' }}">Conditions</span>
+                                <span class="splitDown">Conditions</span>
                             </a>
                         @endauth
                         <a href="/features" class="link">
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </nav>
-        <script src="{{ asset('js/spanText.js') }}"></script>
+        <script src="{{ asset('js/spanText.js') }}?v={{ filemtime(public_path('js/spanText.js')) }}"></script>
         {{--body--}}
         <div class="w-full">
             {{ $slot }}
