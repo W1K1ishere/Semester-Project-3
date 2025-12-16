@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Http;
 class ConditionsController extends Controller
 {
     public function view() {
-        $currentCondition = OfficeData::latest()->first();
-        return view('auth.condition',[
-            'currentCondition' => $currentCondition
+        $dep_names = auth()->user()->departments()->pluck('dep_name');
+        $currentConditions = OfficeData::whereIn('department', $dep_names)->whereIn('id', function ($query) {
+            $query->selectRaw('MAX(id)')->from('office_data')->groupBy('department');
+        })->orderBy('department')->get();
+        return view('auth.condition', [
+            'currentConditions' => $currentConditions
         ]);
     }
 
