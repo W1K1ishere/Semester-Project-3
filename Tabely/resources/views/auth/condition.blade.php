@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="w-screen h-screen flex flex-col items-center">
+    <div class="w-screen h-screen flex flex-col items-center mb-10">
         {{--weather widget--}}
         <div class="relative bg-orange-50 w-[calc(100%-200px)] h-[150px] mt-10 rounded-3xl overflow-hidden shadow-2xl" id="weather" >
             {{--background--}}
@@ -30,6 +30,12 @@
         @foreach($currentConditions as $currentCondition)
             <x-department-condition :currentCondition="$currentCondition"></x-department-condition>
         @endforeach
+        <div class="relative bg-orange-50 w-[calc(100%-200px)] h-[250px] mt-10 rounded-3xl overflow-hidden shadow-2xl flex">
+            <canvas id="humidityChart" height="110"></canvas>
+        </div>
+        <div class="relative bg-orange-50 w-[calc(100%-200px)] h-[250px] mt-10 rounded-3xl overflow-hidden shadow-2xl flex">
+            <canvas id="temperatureChart" height="110"></canvas>
+        </div>
     </div>
 </x-layout>
 <script>
@@ -39,3 +45,17 @@
     };
 </script>
 <script src="{{ asset('js/geolocation.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    window.humidity_data = {
+        labels: @json($days),
+        datasets: @json($humidityDatasets)
+    };
+</script>
+<script>
+    window.temperature_data = {
+        labels: @json($days),
+        datasets: @json($temperatureDatasets)
+    };
+</script>
+<script src="{{ asset('js/charts.js') }}?v={{ filemtime(public_path('js/charts.js')) }}"></script>
