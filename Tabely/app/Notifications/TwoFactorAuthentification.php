@@ -35,7 +35,7 @@ class TwoFactorAuthentification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Verify email address')
+            ->subject('Verification code')
             ->view('mail.two-factor-authentification', [
                 'code' => $this->code,
             ]);

@@ -43,7 +43,7 @@ class SessionController extends Controller
             ]);
         }
 
-        $user->notify(new TwoFactorAuthentification($code));
+//        $user->notify(new TwoFactorAuthentification($code));
         Auth::logout();
         session(['2faUser' => $user->id]);
 
