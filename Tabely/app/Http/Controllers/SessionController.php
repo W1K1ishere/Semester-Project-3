@@ -33,6 +33,16 @@ class SessionController extends Controller
         }
 
         $code = $user->generateCode();
+
+        //just for development local log
+        if (app()->environment('local')) {
+            logger()->info('2FA CODE (LOCAL)', [
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'code' => $code,
+            ]);
+        }
+
         $user->notify(new TwoFactorAuthentification($code));
         Auth::logout();
         session(['2faUser' => $user->id]);
