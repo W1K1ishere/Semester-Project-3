@@ -36,7 +36,7 @@ class SessionController extends Controller
 
         //just for development local log
         if (app()->environment('local')) {
-            logger()->info('2FA CODE (LOCAL)', [
+            logger()->info('2FA code', [
                 'user_id' => $user->id,
                 'email' => $user->email,
                 'code' => $code,
