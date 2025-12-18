@@ -24,6 +24,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('avatar')->nullable();
+            $table->string('two_factor_auth_code')->nullable();
+            $table->timestamp('two_factor_auth_code_expires_at')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

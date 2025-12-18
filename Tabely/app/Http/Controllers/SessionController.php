@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Notifications\TwoFactorAuthentification;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
@@ -12,18 +16,44 @@ class SessionController extends Controller
         return view('auth.login');
     }
 
-    public function store(){
+    public function authenticationView(){
+        return view('auth.authentification');
+    }
+
+    public function sendCode(){
         $attributes = request()->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
-
-        if(!Auth::attempt($attributes, true)){
+        $user = Auth::getProvider()->retrieveByCredentials($attributes);
+        if (!$user || !Auth::getProvider()->validateCredentials($user, $attributes)) {
             throw ValidationException::withMessages([
-                'password' => 'The provided credentials do not match our records.'
+                'password' => 'Provided email or password are incorrect.'
             ]);
         }
 
+        $code = $user->generateCode();
+        $user->notify(new TwoFactorAuthentification($code));
+        Auth::logout();
+        session(['2faUser' => $user->id]);
+
+        return redirect('/authentification');
+    }
+
+    public function store(Request $request){
+        $request->validate([
+            'code' => ['required', 'digits:6'],
+        ]);
+
+        $user = User::find(session('2faUser'));
+
+        if(!$user || !Hash::check($request->code, $user->two_factor_auth_code) || $user->two_factor_auth_code_expires_at < now()){
+            throw ValidationException::withMessages([
+                'code' => 'The code is invalid or expired.'
+            ]);
+        }
+        $user->resetCode();
+        Auth::login($user);
         request()->session()->regenerate();
 
         return redirect('/');

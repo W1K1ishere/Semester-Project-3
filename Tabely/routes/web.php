@@ -37,7 +37,9 @@ Route::post('/profile/create', [ProfileController::class, 'createProfile'])->mid
 Route::get('/admin', [AdminController::class, 'adminView'])->middleware('auth', 'admin');
 
 Route::get('/login', [SessionController::class, 'create']);
-Route::post('/login', [SessionController::class, 'store']);
+Route::post('/send-code', [SessionController::class, 'sendCode'])->middleware('throttle:4,1');
+Route::get('/authentification', [SessionController::class, 'authenticationView'])->middleware('throttle:4,1');
+Route::post('/login', [SessionController::class, 'store'])->middleware('throttle:4,1');
 Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth');
 
 Route::get('admin/addUser', [AdminController::class, 'addUserView'])->middleware('auth', 'admin');
@@ -46,7 +48,7 @@ Route::get('/createForm', [RegisterController::class, 'createFormView'])->middle
 Route::post('/createNewUser', [RegisterController::class, 'createNewUser'])->middleware('auth', 'admin');
 
 Route::get('/reset-request', [PasswordResetController::class, 'passwordResetView']);
-Route::post('/send', [PasswordResetController::class, 'sendResetEmail']);
+Route::post('/send', [PasswordResetController::class, 'sendResetEmail'])->middleware('throttle:2,1');
 Route::get('/resetPassword', [PasswordResetController::class, 'resetPasswordView']);
 Route::post('/reset', [PasswordResetController::class, 'reset']);
 

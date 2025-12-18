@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -45,5 +46,22 @@ class User extends Authenticatable
     public function departments(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Department::class, 'works_in', 'user_id', 'department_id');
+    }
+
+    public function generateCode() {
+        $code = random_int(100000, 999999);
+        $this->update([
+            'two_factor_auth_code' => Hash::make($code),
+            'two_factor_auth_code_expires_at' => now()->addMinutes(15),
+        ]);
+        return $code;
+    }
+
+    public function resetCode() {
+        $this->update([
+            'two_factor_auth_code' => null,
+            'two_factor_auth_code_expires_at' => null,
+        ]);
+        return true;
     }
 }

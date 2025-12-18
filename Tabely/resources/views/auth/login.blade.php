@@ -1,5 +1,5 @@
 <x-login-layout>
-    <form method="POST" action="/login">
+    <form method="POST" action="/send-code">
         @csrf
         <div class="flex flex-col gap-12 items-center">
             <div class="flex flex-col gap-4 items-center">
