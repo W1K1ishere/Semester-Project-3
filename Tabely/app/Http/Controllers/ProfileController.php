@@ -99,4 +99,30 @@ class ProfileController extends Controller
             return back()->withErrors(['session_length' => 'Invalid values, max is 125cm and min is 65cm']);
         }
     }
+
+    public function updateAvatar(Request $request){
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+        ]);
+
+        $user = auth()->user();
+
+        if ($user->avatar) {
+            $oldPath = public_path($user->avatar);
+
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
+        }
+
+        $filename = $user->id . '.' . $request->avatar->extension();
+        $path = 'avatars/' . $filename;
+
+        $request->avatar->move(public_path('avatars'), $filename);
+
+        $user->avatar = $path;
+        $user->save();
+
+        return back();
+    }
 }

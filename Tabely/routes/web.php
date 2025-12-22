@@ -33,6 +33,7 @@ Route::get('/profile/cancel', [ProfileController::class, 'cancel'])->middleware(
 Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->middleware('auth');
 Route::patch('/profile/update', [ProfileController::class, 'updateUser'])->name('profile.update')->middleware('auth');
 Route::post('/profile/create', [ProfileController::class, 'createProfile'])->middleware('auth');
+Route::post('/profile/update-avatar', [ProfileController::class, 'updateAvatar'])->middleware('auth');
 
 Route::get('/admin', [AdminController::class, 'adminView'])->middleware('auth', 'admin');
 

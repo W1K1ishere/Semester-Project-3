@@ -24,12 +24,28 @@
             <div class="flex flex-col bg-orange-50/90 w-[550px] rounded-2xl my-10 ml-10 gap-10">
                 <!-- Left content -->
                 <div class="relative w-72 h-72 mt-10 ml-32">
-                    <img src="{{ asset('avatars/Default.jpg') }}" class="rounded-full w-72 h-72 shadow-2xl">
-                    <a href="/"
-                       class="absolute -top-6 -left-28 size-28 bg-white rounded-full p-1 shadow active:scale-90 transition-transform">
-                        <img src="{{ asset('images/logo.png') }}" alt="logo">
-                    </a>
+                    {{--avatar upload--}}
+                    <form method="POST" action="/profile/update-avatar" enctype="multipart/form-data" class="absolute -right-16 -bottom-6">
+                        @csrf
+                        <label class="bg-white rounded-full cursor-pointer shadow active:scale-90 transition-transform block">
+                            <input type="file" class="hidden" name="avatar" id="avatar">
+                            <img src="{{ asset('images/upload.png') }}" class="size-20 px-4 py-4" alt="upload">
+                        </label>
+                    </form>
+
+                    {{--avatar--}}
+                    <img
+                        @if($user->avatar)
+                            src="{{ asset($user->avatar) }}"
+                        @else
+                            src="{{ asset('avatars/Default.jpg') }}"
+                        @endif
+                        class="rounded-full w-72 h-72 shadow-2xl" alt="profile picture">
+
+                    {{--navigation back to welcome page--}}
+                    <a href="/" class="absolute -top-6 -left-28 size-28 bg-white rounded-full p-1 shadow active:scale-90 transition-transform"><img src="{{ asset('images/logo.png') }}" alt="logo"></a>
                 </div>
+
 
                 {{--Edit profile text and small informations--}}
                 <div class="flex flex-row">
@@ -152,3 +168,4 @@
 </div>
 </body>
 </html>
+<script src="{{ asset('js/avatar.js') }}"></script>
