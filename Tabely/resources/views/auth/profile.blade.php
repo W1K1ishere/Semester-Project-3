@@ -85,9 +85,9 @@
                         </div>
                     </div>
                     {{--password reset button and save button--}}
-                    <div class="flex flex-col mt-8 gap-14">
-                        <button form="send-form" class="text-orange-400 mr-[345px]">Reset password</button>
-                        <button type="submit" class="bg-orange-400 rounded-2xl w-40 h-12 ml-48">Save</button>
+                    <div class="flex flex-col mt-8 gap-14 items-center">
+                        <button form="send-form" class="text-orange-500/70 hover:text-orange-600 active:text-orange-700 active:scale-95 transition-transform mr-[345px]">Reset password</button>
+                        <button type="submit" class="bg-orange-500/70 text-white w-[calc(100%-50%)] rounded-3xl px-3 py-2 hover:bg-orange-600/70 hover:scale-95 transition-transform active:bg-orange-700/70 active:scale-90">Save</button>
                     </div>
                 </form>
                 <form id="send-form" method="POST" action="/send" class="hidden">
@@ -133,10 +133,10 @@
                             <x-form-error name="session_length"></x-form-error>
                             {{--save, cancle, delete buttons--}}
                             <div class="flex flex-row gap-5">
-                                <button type="submit" class="bg-orange-500 px-3 py-2 rounded-2xl ">Save</button>
-                                <button type="submit" form="delete-form" class="bg-transparent text-orange-500">Delete
+                                <button type="submit" class="bg-orange-500/70 text-white rounded-3xl px-3 py-2 hover:bg-orange-600/70 hover:scale-95 transition-transform active:bg-orange-700/70 active:scale-90">Save</button>
+                                <button type="submit" form="delete-form" class="bg-transparent text-orange-500/70 hover:text-orange-600 active:text-orange-700 active:scale-95 transition-transform">Delete
                                 </button>
-                                <a class="bg-transparent text-black mt-2" href="/profile/cancel">Cancel</a>
+                                <a class="bg-transparent text-gray-700 transition-transform hover:scale-95 hover:text-gray-800 active:text-black active:scale-90 mt-2" href="/profile/cancel">Cancel</a>
                             </div>
                             </form>
                         </div>
@@ -153,7 +153,7 @@
                             <x-profile-edit-input id="session_length" name="session_length" text="Session length: " :value="0"></x-profile-edit-input>
                             <x-form-error name="session_length"></x-form-error>
                             {{--create button--}}
-                            <button type="submit" class="bg-orange-500 px-3 py-2 rounded-2xl">Create new profile</button>
+                            <button type="submit" class="bg-orange-500/70 text-white rounded-3xl px-3 py-2 hover:bg-orange-600/70 hover:scale-95 transition-transform active:bg-orange-700/70 active:scale-90">Create new profile</button>
                             </form>
                         </div>
                     </div>
