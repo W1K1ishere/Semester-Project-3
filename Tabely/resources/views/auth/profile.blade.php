@@ -25,11 +25,11 @@
                 <!-- Left content -->
                 <div class="relative w-72 h-72 mt-10 ml-32">
                     {{--avatar upload--}}
-                    <form method="POST" action="/profile/update-avatar" enctype="multipart/form-data" class="absolute -right-16 -bottom-6">
+                    <form method="POST" action="/profile/update-avatar" enctype="multipart/form-data" class="absolute -right-12 -bottom-4">
                         @csrf
                         <label class="bg-white rounded-full cursor-pointer shadow active:scale-90 transition-transform block">
                             <input type="file" class="hidden" name="avatar" id="avatar">
-                            <img src="{{ asset('images/upload.png') }}" class="size-20 px-4 py-4" alt="upload">
+                            <img src="{{ asset('images/upload.png') }}" class="size-16 px-4 py-4" alt="upload">
                         </label>
                     </form>
 
